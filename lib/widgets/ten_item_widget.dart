@@ -1,0 +1,60 @@
+import 'package:donobox/core/app_export.dart';
+import 'package:flutter/material.dart';
+
+// ignore: must_be_immutable
+class TenItemWidget extends StatelessWidget {
+  const TenItemWidget({Key? key})
+      : super(
+          key: key,
+        );
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 71,
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 66,
+              width: 71,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      height: 66,
+                      width: 71,
+                      decoration: BoxDecoration(
+                        color: appTheme.gray900,
+                        borderRadius: BorderRadius.circular(
+                          35,
+                        ),
+                      ),
+                    ),
+                  ),
+                  CustomImageView(
+                    imagePath: ImageConstant.imgUser,
+                    height: 41,
+                    width: 38,
+                    color: Colors.white,
+                    alignment: Alignment.center,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 16),
+            Text(
+              "Study",
+              style: TextStyle(
+                color: Colors.black
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
