@@ -1,4 +1,5 @@
 import 'package:donobox/functions/sharedpre_func.dart';
+import 'package:donobox/screens/transaction/payment.dart';
 import 'package:flutter/material.dart';
 
 class NavDrawer extends StatelessWidget {
@@ -11,14 +12,14 @@ class NavDrawer extends StatelessWidget {
         children: <Widget>[
           DrawerHeader(
             child: Text(
-              'Side menu',
+              '',
               style: TextStyle(color: Colors.white, fontSize: 25),
             ),
             decoration: BoxDecoration(
-                color: Colors.green,
+                color: Color(0XFFFFDC73),
                 image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: AssetImage('assets/images/test.jpg'))),
+                    fit: BoxFit.contain,
+                    image: AssetImage('assets/logo/dono-logo.png'))),
           ),
           ListTile(
             leading: Icon(Icons.verified_user),
@@ -26,9 +27,10 @@ class NavDrawer extends StatelessWidget {
             onTap: () => {Navigator.of(context).pop()},
           ),
           ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
-            onTap: () => {Navigator.of(context).pop()},
+            leading: Icon(Icons.payment),
+            title: Text('Payment'),
+            onTap: () =>     Navigator.of(context).push(
+        MaterialPageRoute(builder: (ctx) => PaymentInterface())),
           ),
           ListTile(
             leading: Icon(Icons.border_color),
