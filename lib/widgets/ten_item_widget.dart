@@ -17,16 +17,16 @@ class TenItemWidget extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: 66,
-              width: 71,
+              height: 57,
+              width: 61,
               child: Stack(
                 alignment: Alignment.center,
                 children: [
                   Align(
                     alignment: Alignment.center,
                     child: Container(
-                      height: 66,
-                      width: 71,
+                      height: 56,
+                      width: 61,
                       decoration: BoxDecoration(
                         color: appTheme.gray900,
                         borderRadius: BorderRadius.circular(
@@ -37,17 +37,17 @@ class TenItemWidget extends StatelessWidget {
                   ),
                   CustomImageView(
                     imagePath: ImageConstant.imgUser,
-                    height: 41,
-                    width: 38,
+                    height: 31,
+                    width: 28,
                     color: Colors.white,
                     alignment: Alignment.center,
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 10),
             Text(
-              "Study",
+              "Charity",
               style: TextStyle(
                 color: Colors.black
               ),

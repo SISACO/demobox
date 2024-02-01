@@ -28,6 +28,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  shared_preferences: ^2.2.2
+  percent_indicator: ^4.0.1
   cached_network_image: ^3.3.0
   flutter_svg: ^2.0.9
   flutter_native_splash: ^2.3.7
@@ -69,6 +71,7 @@ flutter:
     - assets/logo/
     - assets/logo/dono-logo.png
     - assets/images/img_usr.png
+    - assets/images/test.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
