@@ -19,6 +19,7 @@ class HomeScreen extends StatelessWidget {
       
       endDrawer: NavDrawer(),
       appBar: MyAppBar(context),
+      
       body: Padding(
         padding: const EdgeInsets.all(9.0),
         child: ListView(
@@ -44,7 +45,7 @@ class HomeScreen extends StatelessWidget {
                         index,
                       ) {
                         return Padding(
-                          padding: const EdgeInsets.all(1.9),
+                          padding: const EdgeInsets.all(0.6),
                           child: SizedBox(
                             width: 21,
                           ),
@@ -60,47 +61,50 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
 
-            Column(
+            Row(
               children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 12.0, left: 12.0),
-                      child: Text("Featured",
-                          style: TextStyle(
-                              color: Color(0XFF121212), fontSize: 20,fontWeight: FontWeight.bold)),
-                    ),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 12.0, left: 12.0),
+                  child: Text("Featured",
+                      style: TextStyle(
+                          color: Color(0XFF121212), fontSize: 20,fontWeight: FontWeight.bold)),
                 ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(18.0),
-                      child: Column(
-                        
-                        children: [
-                          newPost(),
-                          newPost(),
-                          newPost(),
-                          newPost(),
-                          newPost(),
-                          newPost(),
-                          newPost(),
-                          newPost(),
-                          newPost(),
-                          newPost(),
-                          newPost(),
-                          newPost(),
-                        ],
-                      )
-                      
-                    
-                      
-                    )
-                  ],
-                )
               ],
-            )
+            ),
+            //Catogory section
+            Stack(
+              children: [
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: SizedBox(
+                    
+                    height: 10000,
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) {
+                          return Padding(
+                          padding: const EdgeInsets.all(0.2),
+                          child: SizedBox(
+                            width: 11,
+                          ),
+                        );
+                      },
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.only(bottom: 27),
+                      scrollDirection: Axis.vertical,
+                      
+                      itemCount: 60,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(14.0),
+                          child: newPost(),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -121,7 +125,7 @@ class newPost extends StatelessWidget {
           borderRadius:
               BorderRadius.all(Radius.circular(7))),
       height: 500,
-      width: 300,
+      width: 420,
 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -208,7 +212,7 @@ class newPost extends StatelessWidget {
                                 ),
                             onPressed: () {},
                             child: Text(
-                              'Donate Now',
+                              'See more',
                               style:
                                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                             ),
