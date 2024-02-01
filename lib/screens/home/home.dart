@@ -144,7 +144,7 @@ class newPost extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text("Help Them Smile Today",style: TextStyle(fontSize: 16),),
+                child: Text("Help Them Smile Again",style: TextStyle(fontSize: 16),),
               )
             ],
           ),
