@@ -1,5 +1,4 @@
 import 'dart:ui';
-import 'package:donobox/core/utils/size_utils.dart';
 import 'package:flutter/material.dart';
 
 
@@ -54,7 +53,7 @@ class ThemeHelper {
         style: ElevatedButton.styleFrom(
           backgroundColor: appTheme.black900,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.h),
+            borderRadius: BorderRadius.circular(20),
           ),
           visualDensity: const VisualDensity(
             vertical: -4,
@@ -83,31 +82,31 @@ class TextThemes {
   static TextTheme textTheme(ColorScheme colorScheme) => TextTheme(
         bodyLarge: TextStyle(
           color: appTheme.cyan800,
-          fontSize: 16.fSize,
+          fontSize: 16,
           fontFamily: 'Inter',
           fontWeight: FontWeight.w300,
         ),
         bodyMedium: TextStyle(
           color: appTheme.black900.withOpacity(0.43),
-          fontSize: 14.fSize,
+          fontSize: 14,
           fontFamily: 'Inter',
           fontWeight: FontWeight.w100,
         ),
         titleLarge: TextStyle(
           color: appTheme.black900,
-          fontSize: 20.fSize,
+          fontSize: 20,
           fontFamily: 'Inter',
           fontWeight: FontWeight.w700,
         ),
         titleMedium: TextStyle(
           color: appTheme.gray900,
-          fontSize: 16.fSize,
+          fontSize: 16,
           fontFamily: 'Inter',
           fontWeight: FontWeight.w500,
         ),
         titleSmall: TextStyle(
           color: appTheme.black900,
-          fontSize: 14.fSize,
+          fontSize: 14,
           fontFamily: 'Inter',
           fontWeight: FontWeight.w700,
         ),

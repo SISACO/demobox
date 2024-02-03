@@ -1,10 +1,11 @@
+import 'package:donobox/core/app_export.dart';
 import 'package:donobox/core/colors/colors.dart';
 import 'package:flutter/material.dart';
 
 AppBar PayBar(BuildContext context) {
   return AppBar(
     iconTheme: IconThemeData(
-      color: Colors.black,
+      color: PrimaryColors().black900,
       size: 35,
     ),
     centerTitle: true,
@@ -14,12 +15,13 @@ AppBar PayBar(BuildContext context) {
     elevation: 0,
     bottom: TabBar(
       
+      isScrollable: true,
       labelColor: Colors.black,
       unselectedLabelColor: Color(0X498F8F8F),
       indicatorWeight: 3,
       
   indicatorSize: TabBarIndicatorSize.label,
-      indicatorColor: Colors.amberAccent,
+      indicatorColor: PrimaryColors().amber300,
       tabs: [
        
         Tab( child: Text("Donation Amount",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),),

@@ -1,5 +1,7 @@
 
+import 'package:donobox/core/colors/colors.dart';
 import 'package:donobox/reuseable/details_reuse.dart';
+import 'package:donobox/theme/theme_helper.dart';
 import 'package:flutter/material.dart';
 
 class DetailsScrn extends StatelessWidget {
@@ -10,7 +12,15 @@ class DetailsScrn extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Details'),),
       body: SafeArea(
-        child: reDetails(Image.asset('assets/images/test.jpg'), const Text('Help Them Smile Again'), '10000 / 20000', const Text('anything'))
+        
+        child: Column(
+          children: [
+            Container(
+              color: NeutralBlack,
+            )
+          ],
+        )
+        
       ),
     );
   }
