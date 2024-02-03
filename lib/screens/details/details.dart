@@ -1,13 +1,7 @@
 
-<<<<<<< HEAD
-import 'package:donobox/core/colors/colors.dart';
-import 'package:donobox/reuseable/details_reuse.dart';
-import 'package:donobox/theme/theme_helper.dart';
-=======
 import 'package:donobox/model/model.dart';
 import 'package:donobox/reuseable/reuseable.dart';
 import 'package:donobox/widgets/appbar/AppBar.dart';
->>>>>>> 4929be1a6e71f6480198f6b055b42fb938ff305c
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -34,17 +28,6 @@ class DetailsScrn extends StatelessWidget {
     return Scaffold(
       appBar: MyAppBar(context, 'More Details'),
       body: SafeArea(
-<<<<<<< HEAD
-        
-        child: Column(
-          children: [
-            Container(
-              color: NeutralBlack,
-            )
-          ],
-        )
-        
-=======
         child: Container(
       decoration: BoxDecoration(
           color: Colors.white,
@@ -150,7 +133,6 @@ class DetailsScrn extends StatelessWidget {
         ],
       ),
     ),
->>>>>>> 4929be1a6e71f6480198f6b055b42fb938ff305c
       ),
     );
   }
