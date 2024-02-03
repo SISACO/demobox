@@ -1,3 +1,4 @@
+import 'package:donobox/data/newpost_data.dart';
 import 'package:donobox/screens/details/details.dart';
 import 'package:donobox/screens/home/home.dart';
 import 'package:donobox/screens/auth/sign.dart';
@@ -34,7 +35,3 @@ exitapp(BuildContext context) async {
       (route) => false);
 }
 
-gotodetails(BuildContext context) async {
-  Navigator.of(context)
-      .push(MaterialPageRoute(builder: (ctx) => const DetailsScrn()));
-}

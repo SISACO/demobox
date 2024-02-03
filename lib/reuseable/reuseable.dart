@@ -1,3 +1,4 @@
+import 'package:donobox/screens/transaction/payment.dart';
 import 'package:flutter/material.dart';
 
 TextField retextfield(String text, IconData icon, bool isPasswordType,
@@ -48,4 +49,15 @@ ElevatedButton reButton(text, bool isfirst, Function onTap) {
       style: const TextStyle(color: Colors.black),
     ),
   );
+}
+ElevatedButton blckbtn(BuildContext ctx, Text btntext){
+  return ElevatedButton(style:ElevatedButton.styleFrom(
+    fixedSize: Size(340, 55),
+        backgroundColor: Colors.black,
+        side: BorderSide(width: 1, color: Colors.black),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5,)),),
+          onPressed: () {
+           Navigator.of(ctx).push(MaterialPageRoute(builder: (ctx1)=>PaymentInterface()));
+          },child:btntext,);
 }
