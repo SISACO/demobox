@@ -1,4 +1,7 @@
 
+import 'package:donobox/data/newpost_data.dart';
+import 'package:donobox/model/model.dart';
+import 'package:donobox/screens/details/details.dart';
 import 'package:donobox/widgets/menubar/MenuBar.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 export 'package:donobox/widgets/custom_image_view.dart';
@@ -19,7 +22,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       
       endDrawer: NavDrawer(),
-      appBar: MyAppBar(context),
+      appBar: MyAppBar(context,'Hello Good People'),
       
       body: Padding(
         padding: const EdgeInsets.all(9.0).w,
@@ -94,10 +97,11 @@ class HomeScreen extends StatelessWidget {
                       padding: EdgeInsets.only(bottom: 20).w,
                       scrollDirection: Axis.vertical,
                       
-                      itemCount: 60,
+                      itemCount: newpostlist.length,
                       itemBuilder: (context, index) {
+                        final model = newpostlist[index];
                         return Padding(
-                          padding: const EdgeInsets.all(27.0).w,
+                          padding: const EdgeInsets.all(14.0),
                           child: newPost(),
                         );
                       },
@@ -114,8 +118,9 @@ class HomeScreen extends StatelessWidget {
 }
 
 class newPost extends StatelessWidget {
+  final NewPost model;
   const newPost({
-    super.key,
+    super.key,required this.model
   });
 
   @override
@@ -137,7 +142,7 @@ class newPost extends StatelessWidget {
               
               decoration: BoxDecoration(
                 image: DecorationImage(image: AssetImage("assets/images/test.jpg",),fit: BoxFit.fill,),
-                borderRadius: BorderRadius.all(Radius.circular(9)).w,
+                borderRadius: BorderRadius.all(Radius.circular(9)),
               color: Colors.black),
               height: 200.h,
               width: 300.w,
@@ -148,8 +153,8 @@ class newPost extends StatelessWidget {
           Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0).w,
-                child: Text("Help Them Smile Again",style: TextStyle(fontSize: 16.sp),),
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Help Them Smile Again",style: TextStyle(fontSize: 16),),
               )
             ],
           ),
@@ -157,8 +162,8 @@ class newPost extends StatelessWidget {
           Column(
             children: [
                     LinearPercentIndicator(
-                    width: 300.h,
-                    lineHeight: 6.0.h,
+                    width: 300.0,
+                    lineHeight: 6.0,
                     percent: 0.5,
                     barRadius: Radius.circular(3),
                     progressColor: PrimaryColors().amber300,
@@ -173,12 +178,12 @@ class newPost extends StatelessWidget {
                 child: Row(
                   
                   children: [
-                    Text("\u{20B9}55.99",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.sp),),
-                    Text("/",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.sp)),
-                    Text("\u{20B9}100",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.sp,color: PrimaryColors().gray200)),
+                    Text("\u{20B9}55.99",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                    Text("/",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
+                    Text("\u{20B9}100",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: Color(0X498F8F8F))),
                     Padding(
-                      padding: const EdgeInsets.only(left:160.0).w,
-                      child: Text("50%",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.sp)),
+                      padding: const EdgeInsets.only(left:160.0),
+                      child: Text("50%",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
                     )
                   ],
                   
@@ -191,7 +196,7 @@ class newPost extends StatelessWidget {
            
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0).w,
+                padding: const EdgeInsets.all(8.0),
                 child: Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris volutpat, ex elementum tincidunt pellentesque, nunc tortor commodo ipsum, at convallis urna mi nec dolor. Nunc luctus convallis nisl, dapibus rhoncus justo consectetur ac. Donec in mi sapien. Aliquam ac mattis augue.",style: TextStyle(fontWeight: FontWeight.w500),),
               )
             ],
@@ -211,7 +216,9 @@ class newPost extends StatelessWidget {
                                 )),
                                 
                                 ),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(builder: (ctx1)=>DetailsScrn(model: model,)));
+                            },
                             child: Text(
                               'See more',
                               style:
