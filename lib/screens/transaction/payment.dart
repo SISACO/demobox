@@ -1,4 +1,5 @@
 import 'package:donobox/screens/AmountAdd/AmountAdd.dart';
+import 'package:donobox/screens/Donation/donation.dart';
 import 'package:donobox/screens/home/home.dart';
 import 'package:donobox/widgets/appbar/AppBar.dart';
 import 'package:donobox/widgets/appbar/PayBar.dart';
@@ -21,7 +22,7 @@ class PaymentInterface extends StatelessWidget {
           appBar: PayBar(context),  
           body: TabBarView(  
             children: [  
-             HomeScreen(),  
+             DonationScrn(),  
              AddAmount(),  
             ],  
           ),  

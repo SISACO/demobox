@@ -14,3 +14,12 @@ class NewPost{
   NewPost({required this.id,required this.img, required this.slogan,required this.linear,required this.gefund,required this.refund,required this.perc ,required this.des});
 
 }
+
+class Filters{
+  final int id;
+  final Icon idol;
+  final String t1;
+
+  Filters({required this.id, required this.idol, required this.t1});
+
+}

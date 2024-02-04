@@ -50,7 +50,7 @@ ElevatedButton reButton(text, bool isfirst, Function onTap) {
     ),
   );
 }
-ElevatedButton blckbtn(BuildContext ctx, Text btntext){
+ElevatedButton blckbtn(BuildContext ctx, String btntext , Function onTap ){
   return ElevatedButton(style:ElevatedButton.styleFrom(
     fixedSize: Size(340, 55),
         backgroundColor: Colors.black,
@@ -58,6 +58,6 @@ ElevatedButton blckbtn(BuildContext ctx, Text btntext){
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5,)),),
           onPressed: () {
-           Navigator.of(ctx).push(MaterialPageRoute(builder: (ctx1)=>PaymentInterface()));
-          },child:btntext,);
+           onTap();
+          },child:Text(btntext,style:TextStyle(color: Colors.white, fontWeight: FontWeight.bold),));
 }
