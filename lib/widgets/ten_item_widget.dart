@@ -1,10 +1,12 @@
 import 'package:donobox/core/app_export.dart';
+import 'package:donobox/model/model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: must_be_immutable
 class TenItemWidget extends StatelessWidget {
-  const TenItemWidget({Key? key})
+  final Filters fmodel;
+  const TenItemWidget({Key? key, required this.fmodel})
       : super(
           key: key,
         );
@@ -36,6 +38,7 @@ class TenItemWidget extends StatelessWidget {
                       ),
                     ),
                   ),
+                  // IconButton(onPressed: (){}, icon: Icon(Icons.ac_unit_outlined))
                   CustomImageView(
                     imagePath: ImageConstant.imgUser,
                     height: 31.h,
@@ -48,7 +51,7 @@ class TenItemWidget extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              "Charity",
+              fmodel.t1,
               style: TextStyle(
                 color: PrimaryColors().black900
               ),

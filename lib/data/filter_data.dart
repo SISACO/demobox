@@ -23,6 +23,7 @@ List<Filters> filterslist = [
     idol: Icon(Icons.widgets_rounded), 
     t1: 'Others'),
 
+
 ];
 
 

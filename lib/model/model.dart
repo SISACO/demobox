@@ -22,4 +22,5 @@ class Filters{
 
   Filters({required this.id, required this.idol, required this.t1});
 
+  
 }

@@ -1,4 +1,5 @@
 
+import 'package:donobox/data/filter_data.dart';
 import 'package:donobox/data/newpost_data.dart';
 import 'package:donobox/model/model.dart';
 import 'package:donobox/screens/details/details.dart';
@@ -54,9 +55,10 @@ class HomeScreen extends StatelessWidget {
                           ),
                         );
                       },
-                      itemCount: 4,
+                      itemCount: filterslist.length,
                       itemBuilder: (context, index) {
-                        return TenItemWidget();
+                        final fmodel = filterslist[index];
+                        return TenItemWidget(fmodel: fmodel,);
                       },
                     ),
                   ),
