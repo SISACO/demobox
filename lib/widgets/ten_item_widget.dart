@@ -38,14 +38,14 @@ class TenItemWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // IconButton(onPressed: (){}, icon: Icon(Icons.ac_unit_outlined))
-                  CustomImageView(
-                    imagePath: ImageConstant.imgUser,
-                    height: 31.h,
-                    width: 28.w,
-                    color: PrimaryColors().whiteA700,
-                    alignment: Alignment.center,
-                  ),
+                   IconButton(onPressed: (){}, icon: fmodel.idol,color: PrimaryColors().whiteA700,iconSize: 30,),
+                  // CustomImageView(
+                  //   imagePath: ImageConstant.imgUser,
+                  //   height: 31.h,
+                  //   width: 28.w,
+                  //   color: PrimaryColors().whiteA700,
+                  //   alignment: Alignment.center,
+                  // ),
                 ],
               ),
             ),

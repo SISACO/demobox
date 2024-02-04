@@ -23,7 +23,7 @@ class PaymentInterface extends StatelessWidget {
           body: TabBarView(  
             children: [  
              DonationScrn(),  
-             AddAmount(),  
+             AddAmount(showAppBar: false)  
             ],  
           ),  
         ),  

@@ -361,7 +361,8 @@ class UserWallet extends StatelessWidget {
                     20,
                   ))),
               onPressed: () {
-                MaterialPageRoute(builder: (ctx) => DonationScrn());
+                Navigator.of(context).push(
+        MaterialPageRoute(builder: (ctx) => AddAmount(showAppBar: true,)));
               },
               child: Text(
                 'Top up',

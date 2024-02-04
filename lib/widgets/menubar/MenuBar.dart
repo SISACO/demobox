@@ -29,15 +29,15 @@ class NavDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.payment),
-            title: Text('Payment'),
+            title: Text('Topup Wallet'),
             onTap: () =>     Navigator.of(context).push(
-        MaterialPageRoute(builder: (ctx) => AddAmount())),
+        MaterialPageRoute(builder: (ctx) => AddAmount(showAppBar: true,))),
           ),
-          ListTile(
-            leading: Icon(Icons.border_color),
-            title: Text('Feedback'),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
+          // ListTile(
+          //   leading: Icon(Icons.border_color),
+          //   title: Text('Feedback'),
+          //   onTap: () => {Navigator.of(context).pop()},
+          // ),
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('Logout'),
