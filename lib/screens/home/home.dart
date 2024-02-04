@@ -1,9 +1,11 @@
-
 import 'package:donobox/data/filter_data.dart';
 import 'package:donobox/data/newpost_data.dart';
 import 'package:donobox/model/model.dart';
+import 'package:donobox/screens/AmountAdd/AmountAdd.dart';
+import 'package:donobox/screens/Donation/donation.dart';
 import 'package:donobox/screens/details/details.dart';
 import 'package:donobox/widgets/menubar/MenuBar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 export 'package:donobox/widgets/custom_image_view.dart';
 import 'package:donobox/core/app_export.dart';
@@ -18,47 +20,48 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    
+
     return Scaffold(
-      
       endDrawer: NavDrawer(),
-      appBar: MyAppBar(context,'Hello Good People'),
-      
+      appBar: MyAppBar(context, 'Hello Good People'),
       body: Padding(
-        padding: const EdgeInsets.all(9.0),
+        padding: const EdgeInsets.all(9.0).w,
         child: ListView(
-          
           children: [
-            SizedBox(height: 5),
+            SizedBox(height: 5.h),
             UserWallet(),
-            SizedBox(height: 17),
+            SizedBox(height: 17.h),
             SearchBarApp(),
-            SizedBox(height: 17),
+            SizedBox(height: 17.h),
             //Catogory section
             Stack(
               children: [
                 Align(
                   alignment: Alignment.topCenter,
                   child: SizedBox(
-                    height: 125,
+                    height: 125.h,
                     child: ListView.separated(
-                      padding: EdgeInsets.only(bottom: 27),
+                      padding: EdgeInsets.only(bottom: 27).w,
                       scrollDirection: Axis.horizontal,
                       separatorBuilder: (
                         context,
                         index,
                       ) {
                         return Padding(
-                          padding: const EdgeInsets.all(0.6),
+                          padding: const EdgeInsets.all(0.6).w,
                           child: SizedBox(
-                            width: 21,
+                            width: 20.w,
                           ),
                         );
                       },
                       itemCount: filterslist.length,
                       itemBuilder: (context, index) {
                         final fmodel = filterslist[index];
-                        return TenItemWidget(fmodel: fmodel,);
+                        return Container(
+                            margin: EdgeInsets.symmetric(horizontal: 6).w,
+                            child: TenItemWidget(
+                              fmodel: fmodel,
+                            ));
                       },
                     ),
                   ),
@@ -69,10 +72,12 @@ class HomeScreen extends StatelessWidget {
             Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 12.0, left: 12.0),
+                  padding: const EdgeInsets.only(top: 12.0, left: 12.0).w,
                   child: Text("Featured",
                       style: TextStyle(
-                          color: Color(0XFF121212), fontSize: 20,fontWeight: FontWeight.bold)),
+                          color: Color(0XFF121212),
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.bold)),
                 ),
               ],
             ),
@@ -81,32 +86,29 @@ class HomeScreen extends StatelessWidget {
               children: [
                 Align(
                   alignment: Alignment.topCenter,
-                  child: SizedBox(
-                    
-                    height: 10000,
-                    child: ListView.separated(
-                      separatorBuilder: (context, index) {
-                          return Padding(
-                          padding: const EdgeInsets.all(0.2),
-                          child: SizedBox(
-                            width: 11,
-                          ),
-                        );
-                      },
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: EdgeInsets.only(bottom: 27),
-                      scrollDirection: Axis.vertical,
-                      
-                      itemCount: newpostlist.length,
-                      itemBuilder: (context, index) {
-                        final model = newpostlist[index];
-                        return Padding(
-                          padding: const EdgeInsets.all(14.0),
-                          child: newPost(model: model,),
-                        );
-                      },
-                    ),
+                  child: ListView.separated(
+                    separatorBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(0.2).w,
+                        child: SizedBox(
+                          width: 11.w,
+                        ),
+                      );
+                    },
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.only(bottom: 27).w,
+                    scrollDirection: Axis.vertical,
+                    itemCount: newpostlist.length,
+                    itemBuilder: (context, index) {
+                      final model = newpostlist[index];
+                      return Padding(
+                        padding: const EdgeInsets.all(14.0).w,
+                        child: newPost(
+                          model: model,
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],
@@ -120,86 +122,99 @@ class HomeScreen extends StatelessWidget {
 
 class newPost extends StatelessWidget {
   final NewPost model;
-  const newPost({
-    super.key,required this.model
-  });
+  const newPost({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius:
-              BorderRadius.all(Radius.circular(7))),
-      height: 500,
-      width: 420,
-
+          borderRadius: BorderRadius.all(Radius.circular(7)).w),
+      height: 560.h,
+      width: 420.w,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0).w,
             child: Container(
-              
               decoration: BoxDecoration(
-                
-                image: DecorationImage(image:AssetImage(model.img[0]),fit: BoxFit.fill,),
-                borderRadius: BorderRadius.all(Radius.circular(9)),
-              color: Colors.black),
-              height: 200,
-              width: 300,
-              
+                  image: DecorationImage(
+                    image: AssetImage(model.img[0]),
+                    fit: BoxFit.fill,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(9)),
+                  color: Colors.black),
+              height: 250.h,
+              width: 360.w,
             ),
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 5.h),
           Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(model.slogan,style: TextStyle(fontSize: 16),),
+                padding: const EdgeInsets.all(8.0).w,
+                child: Text(
+                  model.slogan,
+                  style: TextStyle(fontSize: 16.sp),
+                ),
               )
             ],
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 5.h),
           Column(
             children: [
-                    LinearPercentIndicator(
-                    width: 300.0,
-                    lineHeight: 6.0,
-                    percent: model.linear,
-                    barRadius: Radius.circular(3),
-                    progressColor: Color(0XFFFFDC73),
-                  )
+              LinearPercentIndicator(
+                width: 360.0.w,
+                lineHeight: 6.0,
+                percent: model.linear,
+                barRadius: Radius.circular(3),
+                progressColor: PrimaryColors().amber300,
+              )
             ],
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 5.h),
           Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0).w,
                 child: Row(
-                  
                   children: [
-                    Text(model.gefund,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                    Text(" / ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
-                    Text(model.refund,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: Color(0X498F8F8F))),
+                    Text(
+                      model.gefund,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 15.sp),
+                    ),
+                    Text(" / ",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15.sp)),
+                    Text(model.refund,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.sp,
+                            color: Color(0X498F8F8F))),
                     Padding(
-                      padding: const EdgeInsets.only(left:160.0),
-                      child: Text(model.perc,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
+                      padding: const EdgeInsets.only(left: 190.0).w,
+                      child: Text(model.perc,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 15.sp)),
                     )
                   ],
-                  
                 ),
               ),
-              
             ],
           ),
           Column(
-           
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(model.des,style: TextStyle(fontWeight: FontWeight.w500,),maxLines: 5,),
+                padding: const EdgeInsets.all(8.0).w,
+                child: Text(
+                  model.des,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                  ),
+                  maxLines: 5,
+                ),
               )
             ],
           ),
@@ -207,30 +222,30 @@ class newPost extends StatelessWidget {
             children: [
               Center(
                 child: ElevatedButton(
-                  
-                            style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.only(left:80.0,right:80.0),
-                                backgroundColor: Colors.black,
-                                side: BorderSide(width: 1, color: Colors.black),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                  5,
-                                )),
-                                
-                                ),
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(builder: (ctx1)=>DetailsScrn(model: model,)));
-                            },
-                            child: Text(
-                              'See more',
-                              style:
-                                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                            ),
-                          ),
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.only(left: 80.0, right: 80.0).w,
+                    backgroundColor: Colors.black,
+                    side: BorderSide(width: 1.w, color: Colors.black),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                      5,
+                    ).w),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (ctx1) => DetailsScrn(
+                              model: model,
+                            )));
+                  },
+                  child: Text(
+                    'See more',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ),
               )
             ],
           )
-
         ],
       ),
     );
@@ -255,7 +270,6 @@ class _SearchBarAppState extends State<SearchBarApp> {
 
     return SearchBar(
       hintText: "Search Here",
-      
       padding: const MaterialStatePropertyAll<EdgeInsets>(
           EdgeInsets.symmetric(horizontal: 16.0)),
       onTap: () {
@@ -265,21 +279,6 @@ class _SearchBarAppState extends State<SearchBarApp> {
         ;
       },
       leading: const Icon(Icons.search),
-      // trailing: <Widget>[
-      //   Tooltip(
-      //     message: 'Change brightness mode',
-      //     child: IconButton(
-      //       isSelected: isDark,
-      //       onPressed: () {
-      //         setState(() {
-      //           isDark = !isDark;
-      //         });
-      //       },
-      //       icon: const Icon(Icons.wb_sunny_outlined),
-      //       selectedIcon: const Icon(Icons.brightness_2_outlined),
-      //     ),
-      //   )
-      // ],
     );
   }
 }
@@ -294,22 +293,22 @@ class UserWallet extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           color: appTheme.amber300,
-          borderRadius: BorderRadius.all(Radius.circular(9))),
-      height: 110,
-      width: 370,
+          borderRadius: BorderRadius.all(Radius.circular(9)).w),
+      height: 120.h,
+      width: 370.w,
       child: Row(
         children: [
           SizedBox(
-            height: 88,
-            width: 88,
+            height: 88.h,
+            width: 88.w,
             child: Stack(
               alignment: Alignment.center,
               children: [
                 Align(
                   alignment: Alignment.center,
                   child: Container(
-                    height: 65,
-                    width: 69,
+                    height: 65.h,
+                    width: 65.w,
                     decoration: BoxDecoration(
                       color: appTheme.gray200,
                       borderRadius: BorderRadius.circular(
@@ -320,8 +319,8 @@ class UserWallet extends StatelessWidget {
                 ),
                 CustomImageView(
                   imagePath: ImageConstant.imgUser,
-                  height: 35,
-                  width: 35,
+                  height: 35.h,
+                  width: 35.w,
                   alignment: Alignment.center,
                 ),
               ],
@@ -330,16 +329,16 @@ class UserWallet extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(
               top: 17,
-            ),
+            ).w,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 21),
+                padding: const EdgeInsets.only(top: 21).w,
                 child: Text(
                   "User wallet",
-                  style: TextStyle(color: Color(0XFF121212), fontSize: 15),
+                  style: TextStyle(color: Color(0XFF121212), fontSize: 15.sp),
                 ),
               ),
               SizedBox(height: 7),
@@ -347,12 +346,12 @@ class UserWallet extends StatelessWidget {
                   style: TextStyle(
                       color: Color(0XFF121212),
                       fontWeight: FontWeight.bold,
-                      fontSize: 30)),
+                      fontSize: 30.sp)),
             ],
           ),
           Spacer(),
           Padding(
-            padding: const EdgeInsets.all(25),
+            padding: const EdgeInsets.all(25).w,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,
@@ -361,7 +360,9 @@ class UserWallet extends StatelessWidget {
                       borderRadius: BorderRadius.circular(
                     20,
                   ))),
-              onPressed: () {},
+              onPressed: () {
+                MaterialPageRoute(builder: (ctx) => DonationScrn());
+              },
               child: Text(
                 'Top up',
                 style:

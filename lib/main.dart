@@ -1,3 +1,4 @@
+import 'package:donobox/core/app_export.dart';
 import 'package:donobox/screens/auth/sign.dart';
 import 'package:donobox/screens/home/home.dart';
 import 'package:donobox/screens/splash/splash.dart';
@@ -8,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Color.fromARGB(255, 255, 255, 255),
+    statusBarColor: PrimaryColors().amberA100,
   ));
   runApp(const MyApp());
 }

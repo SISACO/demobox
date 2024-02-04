@@ -3,4 +3,7 @@
     <item>
         <bitmap android:gravity="fill" android:src="@drawable/donologo"/>
     </item>
+        <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <item name="android:windowBackground">?android:colorBackground</item>
+    </style>
 </layer-list>

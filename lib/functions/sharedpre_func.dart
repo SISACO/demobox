@@ -12,7 +12,7 @@ Future<void> savedata(String usern) async {
 }
 
 Future<void> getdata(BuildContext context) async {
-  await Future.delayed(const Duration(seconds: 2));
+  await Future.delayed(const Duration(seconds: 1));
   final userName = await SharedPreferences.getInstance();
 
   final value1 = userName.getString('saved_user');

@@ -14,7 +14,7 @@ class TenItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 71,
+      width: 71.w,
       child: Align(
         alignment: Alignment.topCenter,
         child: Column(
@@ -28,7 +28,7 @@ class TenItemWidget extends StatelessWidget {
                   Align(
                     alignment: Alignment.center,
                     child: Container(
-                      height: 56.h,
+                      height: 61.h,
                       width: 61.w,
                       decoration: BoxDecoration(
                         color: PrimaryColors().black900,

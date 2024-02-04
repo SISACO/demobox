@@ -1,4 +1,5 @@
 import 'package:donobox/functions/sharedpre_func.dart';
+import 'package:donobox/screens/AmountAdd/AmountAdd.dart';
 import 'package:donobox/screens/transaction/payment.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +31,7 @@ class NavDrawer extends StatelessWidget {
             leading: Icon(Icons.payment),
             title: Text('Payment'),
             onTap: () =>     Navigator.of(context).push(
-        MaterialPageRoute(builder: (ctx) => PaymentInterface())),
+        MaterialPageRoute(builder: (ctx) => AddAmount())),
           ),
           ListTile(
             leading: Icon(Icons.border_color),

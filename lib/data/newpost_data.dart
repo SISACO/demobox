@@ -71,3 +71,4 @@ List<NewPost> newpostlist = [
     des: 'This charity campaign focuses on eradicating hunger by providing nutritious meals to those in need, especially in impoverished communities. Your support ensures that no one goes to bed hungry and helps create a future where individuals can thrive with the energy and nourishment they need. Join us in feeding hope and nourishing futures for a world where everyone has access to the basic necessity of food.')
 
 ];
+
