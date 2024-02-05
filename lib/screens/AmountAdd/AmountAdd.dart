@@ -58,7 +58,7 @@ class AddAmount extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 80.0).w,
+                padding: const EdgeInsets.symmetric(horizontal: 70.0).w,
                 child: Row(
                   children: [
                     CustomButtonTwo(

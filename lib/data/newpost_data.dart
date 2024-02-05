@@ -1,4 +1,5 @@
 import 'package:donobox/model/model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 List<NewPost> newpostlist = [
   NewPost(
@@ -10,7 +11,7 @@ List<NewPost> newpostlist = [
     linear: 0.2,
     gefund: "\u{20B9}200",
     refund: "\u{20B9}1000",
-     perc: '20%',
+    perc: '20%',
     des: 'We work in close coordination with government agencies at various levels – National, State and District – to run child welfare projects. We work with the aim to support and contribute towards Government of India’s vision to build a “Bharat” where children are well-nurtured, with full opportunities for growth and development in a safe and protective environment.Presently, we have presence across 15 states and 3 Union Territories of India and have impacted the lives of more than 10 million children since 2008.We urge you to play your part in gifting a meaningful childhood to underprivileged children. Through your contributions, we can reach more children and support their various needs.'),
   
   NewPost(

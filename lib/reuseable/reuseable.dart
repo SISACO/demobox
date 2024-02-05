@@ -61,3 +61,10 @@ ElevatedButton blckbtn(BuildContext ctx, String btntext , Function onTap ){
            onTap();
           },child:Text(btntext,style:TextStyle(color: Colors.white, fontWeight: FontWeight.bold),));
 }
+
+TextButton Profilebtn(Function onTap,String t1){
+  return TextButton(onPressed: (){
+
+  }, child: Text(t1,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),style: ButtonStyle(
+  ),);
+}

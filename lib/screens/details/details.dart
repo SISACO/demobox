@@ -4,6 +4,7 @@ import 'package:donobox/reuseable/reuseable.dart';
 import 'package:donobox/screens/transaction/payment.dart';
 import 'package:donobox/widgets/appbar/AppBar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 
@@ -16,7 +17,7 @@ class DetailsScrn extends StatelessWidget {
     return Scaffold(
       appBar: MyAppBar(context, 'More Details'),
       bottomNavigationBar: Container(
-        margin: EdgeInsets.only(bottom:10,left: 10,right: 10),
+        margin: EdgeInsets.only(bottom:10,left: 10,right: 10).w,
         child: blckbtn(context,'Donate Now', (){
                   Navigator.of(context).push(MaterialPageRoute(builder: (ctx1)=>PaymentInterface()));
                 }),
@@ -36,14 +37,14 @@ class DetailsScrn extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ClipRRect(borderRadius: BorderRadius.circular(8.0),child: Image.asset(model.img[0]),),
+                padding: const EdgeInsets.all(8.0).w,
+                child: ClipRRect(borderRadius: BorderRadius.circular(8.0).r,child: Image.asset(model.img[0]),),
               ),
               SizedBox(height: 5),
               Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0).w,
                     child: Text(model.slogan,style: TextStyle(fontSize: 16)),
                   )
                 ],
@@ -52,19 +53,19 @@ class DetailsScrn extends StatelessWidget {
               Column(
                 children: [
               LinearPercentIndicator(
-                        width: 350.0,
-                        lineHeight: 6.0,
+                        width: 420.0.w,
+                        lineHeight: 6.0.h,
                         percent: model.linear,
-                        barRadius: Radius.circular(3),
+                        barRadius: Radius.circular(3).r,
                         progressColor: Color(0XFFFFDC73),
                       )
                 ],
               ),
-              SizedBox(height: 5),
+              SizedBox(height: 5.h),
               Column(
                 children:[
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8.0).w,
                     child: Row(
                       children: [
                         Text(model.gefund,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
@@ -79,14 +80,14 @@ class DetailsScrn extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 20,),
-                    padding: EdgeInsets.only(left: 10),
-                    height: 86,
-                    width: 343,
-                    decoration: BoxDecoration(color: Color.fromRGBO(217, 217, 217, 0.66),borderRadius: BorderRadius.circular(10)),
+                    margin: EdgeInsets.only(top: 20,).w,
+                    padding: EdgeInsets.only(left: 10).w,
+                    height: 86.h,
+                    width: 405.w,
+                    decoration: BoxDecoration(color: Color.fromRGBO(217, 217, 217, 0.66),borderRadius: BorderRadius.circular(10).r),
                     child:Row(children: [
                       CircleAvatar(backgroundImage: AssetImage('assets/logo/dono-logo.png'),),
-                      SizedBox(width: 10,),
+                      SizedBox(width: 10.w,),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,10 +97,10 @@ class DetailsScrn extends StatelessWidget {
                           Text('Verified Foundation',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 13,color: Color(0X498F8F8F),))
                         ],
                       ),
-                      SizedBox(width: 90,),
+                      SizedBox(width: 90.w,),
                     Icon(Icons.verified_rounded,color: Colors.blue,)
                     ],)
-                  ),SizedBox(height: 10,)
+                  ),SizedBox(height: 10.h,)
               
                 ],
               ),
@@ -107,10 +108,10 @@ class DetailsScrn extends StatelessWidget {
               Column(
                 children:[
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8.0).w,
                     child: Text(model.des, style: TextStyle(fontWeight: FontWeight.w500),),
                   ),
-                  SizedBox(height: 20,)
+                  SizedBox(height: 20.h,)
                 ],
               ),
               // Column(

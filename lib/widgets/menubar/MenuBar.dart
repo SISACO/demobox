@@ -1,5 +1,6 @@
 import 'package:donobox/functions/sharedpre_func.dart';
 import 'package:donobox/screens/AmountAdd/AmountAdd.dart';
+import 'package:donobox/screens/profile/profile.dart';
 import 'package:donobox/screens/transaction/payment.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +26,7 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.verified_user),
             title: Text('Profile'),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>ProfileScrn()))},
           ),
           ListTile(
             leading: Icon(Icons.payment),
