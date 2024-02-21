@@ -1,5 +1,5 @@
-import 'package:donobox/core/app_export.dart';
-import 'package:donobox/model/model.dart';
+import 'package:Donobox/core/app_export.dart';
+import 'package:Donobox/model/model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -38,7 +38,12 @@ class TenItemWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                   IconButton(onPressed: (){}, icon: fmodel.idol,color: PrimaryColors().whiteA700,iconSize: 30,),
+                  IconButton(
+                    onPressed: () {},
+                    icon: fmodel.idol,
+                    color: PrimaryColors().whiteA700,
+                    iconSize: 30,
+                  ),
                   // CustomImageView(
                   //   imagePath: ImageConstant.imgUser,
                   //   height: 31.h,
@@ -52,9 +57,7 @@ class TenItemWidget extends StatelessWidget {
             SizedBox(height: 10),
             Text(
               fmodel.t1,
-              style: TextStyle(
-                color: PrimaryColors().black900
-              ),
+              style: TextStyle(color: PrimaryColors().black900),
             ),
           ],
         ),

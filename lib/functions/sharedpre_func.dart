@@ -1,7 +1,7 @@
-import 'package:donobox/data/newpost_data.dart';
-import 'package:donobox/screens/details/details.dart';
-import 'package:donobox/screens/home/home.dart';
-import 'package:donobox/screens/auth/sign.dart';
+import 'package:Donobox/data/newpost_data.dart';
+import 'package:Donobox/screens/details/details.dart';
+import 'package:Donobox/screens/home/home.dart';
+import 'package:Donobox/screens/auth/sign.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,4 +34,3 @@ exitapp(BuildContext context) async {
       MaterialPageRoute(builder: (ctx) => const SigninScrn()),
       (route) => false);
 }
-

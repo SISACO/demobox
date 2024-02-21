@@ -1,6 +1,6 @@
 {
-    "name": "donobox",
-    "short_name": "donobox",
+    "name": "Donobox",
+    "short_name": "Donobox",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#hexcode",

@@ -1,4 +1,4 @@
-import 'package:donobox/functions/sharedpre_func.dart';
+import 'package:Donobox/functions/sharedpre_func.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -9,7 +9,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  
   @override
   void initState() {
     getdata(context);
@@ -45,5 +44,4 @@ class _SplashScreenState extends State<SplashScreen> {
   void dispose() {
     super.dispose();
   }
-  
 }

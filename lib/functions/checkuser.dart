@@ -1,5 +1,5 @@
-import 'package:donobox/functions/sharedpre_func.dart';
-import 'package:donobox/screens/home/home.dart';
+import 'package:Donobox/functions/sharedpre_func.dart';
+import 'package:Donobox/screens/home/home.dart';
 import 'package:flutter/material.dart';
 
 const _username = 'donobox';
@@ -10,8 +10,7 @@ void checkLogin(BuildContext ctx, usern, pass) {
     savedata(usern);
     Navigator.of(ctx).pushAndRemoveUntil(
         MaterialPageRoute(builder: (ctx) => HomeScreen()), (route) => false);
-  } 
-  else {
+  } else {
     showDialog(
         context: ctx,
         builder: (ctx1) {

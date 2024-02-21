@@ -1,13 +1,12 @@
-import 'package:donobox/functions/sharedpre_func.dart';
-import 'package:donobox/screens/AmountAdd/AmountAdd.dart';
-import 'package:donobox/screens/transaction/payment.dart';
+import 'package:Donobox/functions/sharedpre_func.dart';
+import 'package:Donobox/screens/AmountAdd/AmountAdd.dart';
+import 'package:Donobox/screens/transaction/payment.dart';
 import 'package:flutter/material.dart';
 
 class NavDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
@@ -30,8 +29,10 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.payment),
             title: Text('Topup Wallet'),
-            onTap: () =>     Navigator.of(context).push(
-        MaterialPageRoute(builder: (ctx) => AddAmount(showAppBar: true,))),
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (ctx) => AddAmount(
+                      showAppBar: true,
+                    ))),
           ),
           // ListTile(
           //   leading: Icon(Icons.border_color),

@@ -1,8 +1,8 @@
-import 'package:donobox/core/app_export.dart';
-import 'package:donobox/reuseable/reuseable.dart';
-import 'package:donobox/widgets/appbar/AppBar.dart';
-import 'package:donobox/widgets/custom_elevated_button.dart';
-import 'package:donobox/widgets/customtextField.dart';
+import 'package:Donobox/core/app_export.dart';
+import 'package:Donobox/reuseable/reuseable.dart';
+import 'package:Donobox/widgets/appbar/AppBar.dart';
+import 'package:Donobox/widgets/custom_elevated_button.dart';
+import 'package:Donobox/widgets/customtextField.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,11 +12,8 @@ class AddAmount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      appBar: showAppBar!
-          ? MyAppBar(context, "Add Amount")
-          : null,
+      appBar: showAppBar! ? MyAppBar(context, "Add Amount") : null,
       bottomNavigationBar: Container(
         margin: EdgeInsets.only(bottom: 10, left: 10, right: 10).w,
         child: blckbtn(context, 'Add Amount', () {}),

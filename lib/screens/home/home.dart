@@ -1,122 +1,133 @@
-import 'package:donobox/data/filter_data.dart';
-import 'package:donobox/data/newpost_data.dart';
-import 'package:donobox/model/model.dart';
-import 'package:donobox/screens/AmountAdd/AmountAdd.dart';
-import 'package:donobox/screens/Donation/donation.dart';
-import 'package:donobox/screens/details/details.dart';
-import 'package:donobox/widgets/menubar/MenuBar.dart';
+import 'package:Donobox/data/filter_data.dart';
+import 'package:Donobox/data/newpost_data.dart';
+import 'package:Donobox/model/model.dart';
+import 'package:flutter/services.dart';
+import 'package:Donobox/screens/AmountAdd/AmountAdd.dart';
+import 'package:Donobox/screens/Donation/donation.dart';
+import 'package:Donobox/screens/details/details.dart';
+import 'package:Donobox/widgets/menubar/MenuBar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-export 'package:donobox/widgets/custom_image_view.dart';
-import 'package:donobox/core/app_export.dart';
-import 'package:donobox/widgets/appbar/AppBar.dart';
-import 'package:donobox/widgets/ten_item_widget.dart';
+export 'package:Donobox/widgets/custom_image_view.dart';
+import 'package:Donobox/core/app_export.dart';
+import 'package:Donobox/widgets/appbar/AppBar.dart';
+import 'package:Donobox/widgets/ten_item_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:donobox/theme/theme_helper.dart';
+import 'package:Donobox/theme/theme_helper.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     final size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      endDrawer: NavDrawer(),
-      appBar: MyAppBar(context, 'Hello Good People'),
-      body: Padding(
-        padding: const EdgeInsets.all(9.0).w,
-        child: ListView(
-          children: [
-            SizedBox(height: 5.h),
-            UserWallet(),
-            SizedBox(height: 17.h),
-            SearchBarApp(),
-            SizedBox(height: 17.h),
-            //Catogory section
-            Stack(
-              children: [
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: SizedBox(
-                    height: 125.h,
-                    child: ListView.separated(
-                      padding: EdgeInsets.only(bottom: 27).w,
-                      scrollDirection: Axis.horizontal,
-                      separatorBuilder: (
-                        context,
-                        index,
-                      ) {
-                        return Padding(
-                          padding: const EdgeInsets.all(0.6).w,
-                          child: SizedBox(
-                            width: 20.w,
-                          ),
-                        );
-                      },
-                      itemCount: filterslist.length,
-                      itemBuilder: (context, index) {
-                        final fmodel = filterslist[index];
-                        return Container(
-                            margin: EdgeInsets.symmetric(horizontal: 6).w,
-                            child: TenItemWidget(
-                              fmodel: fmodel,
-                            ));
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 12.0, left: 12.0).w,
-                  child: Text("Featured",
-                      style: TextStyle(
-                          color: Color(0XFF121212),
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.bold)),
-                ),
-              ],
-            ),
-            //Catogory section
-            Stack(
-              children: [
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(0.2).w,
+    return ScreenUtilInit(
+        designSize: const Size(430, 932),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (_, child) {
+          return Scaffold(
+            endDrawer: NavDrawer(),
+            appBar: MyAppBar(context, 'Hello Good People'),
+            body: Padding(
+              padding: const EdgeInsets.all(9.0).w,
+              child: ListView(
+                children: [
+                  SizedBox(height: 5.h),
+                  UserWallet(),
+                  SizedBox(height: 17.h),
+                  SearchBarApp(),
+                  SizedBox(height: 17.h),
+                  //Catogory section
+                  Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.topCenter,
                         child: SizedBox(
-                          width: 11.w,
+                          height: 125.h,
+                          child: ListView.separated(
+                            padding: EdgeInsets.only(bottom: 27).w,
+                            scrollDirection: Axis.horizontal,
+                            separatorBuilder: (
+                              context,
+                              index,
+                            ) {
+                              return Padding(
+                                padding: const EdgeInsets.all(0.6).w,
+                                child: SizedBox(
+                                  width: 20.w,
+                                ),
+                              );
+                            },
+                            itemCount: filterslist.length,
+                            itemBuilder: (context, index) {
+                              final fmodel = filterslist[index];
+                              return Container(
+                                  margin: EdgeInsets.symmetric(horizontal: 6).w,
+                                  child: TenItemWidget(
+                                    fmodel: fmodel,
+                                  ));
+                            },
+                          ),
                         ),
-                      );
-                    },
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.only(bottom: 27).w,
-                    scrollDirection: Axis.vertical,
-                    itemCount: newpostlist.length,
-                    itemBuilder: (context, index) {
-                      final model = newpostlist[index];
-                      return Padding(
-                        padding: const EdgeInsets.all(14.0).w,
-                        child: newPost(
-                          model: model,
-                        ),
-                      );
-                    },
+                      ),
+                    ],
                   ),
-                ),
-              ],
+
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 12.0, left: 12.0).w,
+                        child: Text("Featured",
+                            style: TextStyle(
+                                color: Color(0XFF121212),
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.bold)),
+                      ),
+                    ],
+                  ),
+                  //Catogory section
+                  Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.topCenter,
+                        child: ListView.separated(
+                          separatorBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(0.2).w,
+                              child: SizedBox(
+                                width: 11.w,
+                              ),
+                            );
+                          },
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          padding: EdgeInsets.only(bottom: 27).w,
+                          scrollDirection: Axis.vertical,
+                          itemCount: newpostlist.length,
+                          itemBuilder: (context, index) {
+                            final model = newpostlist[index];
+                            return Padding(
+                              padding: const EdgeInsets.all(14.0).w,
+                              child: newPost(
+                                model: model,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
-    );
+          );
+        });
   }
 }
 
@@ -361,8 +372,10 @@ class UserWallet extends StatelessWidget {
                     20,
                   ))),
               onPressed: () {
-                Navigator.of(context).push(
-        MaterialPageRoute(builder: (ctx) => AddAmount(showAppBar: true,)));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (ctx) => AddAmount(
+                          showAppBar: true,
+                        )));
               },
               child: Text(
                 'Top up',

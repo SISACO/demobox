@@ -1,5 +1,5 @@
-import 'package:donobox/core/app_export.dart';
-import 'package:donobox/model/model.dart';
+import 'package:Donobox/core/app_export.dart';
+import 'package:Donobox/model/model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -35,17 +35,14 @@ class CustomButtonTwo extends StatelessWidget {
 
 class newElevatedButton extends StatelessWidget {
   final DtAmount Amodel;
-  newElevatedButton({
-    super.key,
-    required this.Amodel
-  });
+  newElevatedButton({super.key, required this.Amodel});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {},
       child: Text(
-         Amodel.Amount ,
+        Amodel.Amount,
         style: TextStyle(
             color: PrimaryColors().black900,
             fontSize: 20.sp,
@@ -54,7 +51,6 @@ class newElevatedButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
           backgroundColor: PrimaryColors().gray200,
           fixedSize: Size(350, 65),
-          
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(
             13,

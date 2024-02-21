@@ -1,7 +1,6 @@
-
-import 'package:donobox/functions/checkuser.dart';
-import 'package:donobox/functions/sharedpre_func.dart';
-import 'package:donobox/reuseable/reuseable.dart';
+import 'package:Donobox/functions/checkuser.dart';
+import 'package:Donobox/functions/sharedpre_func.dart';
+import 'package:Donobox/reuseable/reuseable.dart';
 import 'package:flutter/material.dart';
 
 class SigninScrn extends StatefulWidget {
@@ -18,7 +17,6 @@ class _SigninScrnState extends State<SigninScrn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -26,25 +24,23 @@ class _SigninScrnState extends State<SigninScrn> {
           const Text('Welcome'),
           Container(
             margin: const EdgeInsets.all(20),
-            
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              border: Border.all(color: const Color.fromARGB(255, 255, 217, 0)),
-              borderRadius: const BorderRadius.all(Radius.circular(15))
-                ),
+                border:
+                    Border.all(color: const Color.fromARGB(255, 255, 217, 0)),
+                borderRadius: const BorderRadius.all(Radius.circular(15))),
             child: Column(
               children: [
-            const SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                retextfield("Username", Icons.person, false,
-                    _usernamecontroller),
-            const SizedBox(
+                retextfield(
+                    "Username", Icons.person, false, _usernamecontroller),
+                const SizedBox(
                   height: 20,
                 ),
-                retextfield("Password", Icons.lock, true,
-                    _passwordcontroller),
-            const SizedBox(
+                retextfield("Password", Icons.lock, true, _passwordcontroller),
+                const SizedBox(
                   height: 20,
                 ),
                 reButton('Login', true, () {
