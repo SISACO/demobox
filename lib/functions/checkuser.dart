@@ -2,7 +2,7 @@ import 'package:Donobox/functions/sharedpre_func.dart';
 import 'package:Donobox/screens/home/home.dart';
 import 'package:flutter/material.dart';
 
-const _username = 'donobox';
+const _username = 'Donobox';
 const _password = '1234';
 
 void checkLogin(BuildContext ctx, usern, pass) {

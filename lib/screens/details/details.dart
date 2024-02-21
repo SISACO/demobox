@@ -92,7 +92,7 @@ class DetailsScrn extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('DonoBox Community',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
+                          Text('Donobox Community',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
                           SizedBox(height:2),
                           Text('Verified Foundation',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 13,color: Color(0X498F8F8F),))
                         ],

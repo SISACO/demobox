@@ -17,7 +17,6 @@ Future<void> main() async {
     statusBarColor: PrimaryColors().amberA100,
   ));
   runApp(const MyApp());
- 
 }
 
 class MyApp extends StatelessWidget {
