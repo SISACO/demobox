@@ -33,3 +33,10 @@ class DtAmount {
 
   DtAmount({required this.Amount});
 }
+
+
+class profile{
+  final tex;
+
+  profile({required this.tex});
+}
