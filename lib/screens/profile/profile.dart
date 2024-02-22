@@ -20,7 +20,7 @@ class ProfileScrn extends StatelessWidget {
               backgroundImage: AssetImage('assets/logo/dono-logo.png'),
               radius: 100.r,
             ),
-            Profilebtn(() {}, 'Edit Profile'),
+            
           ],
         ),
       )),
