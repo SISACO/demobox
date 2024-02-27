@@ -1,4 +1,5 @@
 import 'package:Donobox/core/app_export.dart';
+import 'package:Donobox/functions/auth_gate.dart';
 import 'package:Donobox/screens/auth/sign.dart';
 import 'package:Donobox/screens/home/home.dart';
 import 'package:Donobox/screens/splash/splash.dart';
@@ -42,7 +43,8 @@ class MyApp extends StatelessWidget {
                 backgroundColor: Colors.white,
               ),
             ),
-            home: const SplashScreen(),
+            home: const AuthGate(),
+
           );
         });
   }
