@@ -1,22 +1,23 @@
 import 'package:Donobox/functions/checkuser.dart';
 import 'package:Donobox/reuseable/reuseable.dart';
-import 'package:Donobox/screens/auth/signup.dart';
 import 'package:Donobox/screens/home/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class SigninScrn extends StatefulWidget {
-  const SigninScrn({super.key});
+class SigupScrn extends StatefulWidget {
+  const SigupScrn({super.key});
 
   @override
-  State<SigninScrn> createState() => _SigninScrnState();
+  State<SigupScrn> createState() => _SigupScrnState();
 }
 
-class _SigninScrnState extends State<SigninScrn> {
+class _SigupScrnState extends State<SigupScrn> {
+
+  final TextEditingController _namecontroller = TextEditingController();
+   final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _usernamecontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
-  
-  get ctx => null;
+  final TextEditingController _confirmpasswordcontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +40,16 @@ class _SigninScrnState extends State<SigninScrn> {
                   height: 20,
                 ),
                 retextfield(
+                    "Name", Icons.person, false, _namecontroller),
+                const SizedBox(
+                  height: 20,
+                ),
+                retextfield(
+                    "Email", Icons.email, false, _emailcontroller),
+                const SizedBox(
+                  height: 20,
+                ),
+                retextfield(
                     "Username", Icons.person, false, _usernamecontroller),
                 const SizedBox(
                   height: 20,
@@ -47,18 +58,13 @@ class _SigninScrnState extends State<SigninScrn> {
                 const SizedBox(
                   height: 20,
                 ),
-                reButton('Login', true, () {
-                  checkLogin(context, _usernamecontroller, _passwordcontroller);
+                retextfield("Confirm Password", Icons.lock, true, _confirmpasswordcontroller),
+                const SizedBox(
+                  height: 20,
+                ),
+                reButton('SigUp', true, () {
+                 
                 }),
-                const SizedBox(
-                  height: 20,),
-                Text("Don't Have an Account?"),
-                const SizedBox(
-                  height: 10,),
-                  reButton('Register', false, (){
-                      Navigator.push(context, MaterialPageRoute(builder: (ctx) => SigupScrn()));
-                      
-                  }),
               ],
             ),
           ),
@@ -66,4 +72,4 @@ class _SigninScrnState extends State<SigninScrn> {
       ),
     );
   }
-}
+  }

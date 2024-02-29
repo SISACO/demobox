@@ -1,11 +1,9 @@
 
 
 import 'package:Donobox/functions/auth_gate.dart';
-import 'package:Donobox/functions/sharedpre_func.dart';
 import 'package:Donobox/screens/AmountAdd/AmountAdd.dart';
 import 'package:Donobox/screens/profile/profile.dart';
 import 'package:Donobox/screens/transaction/payment.dart';
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 
 
@@ -32,7 +30,7 @@ class NavDrawer extends StatelessWidget {
             title: Text('Profile'),
             onTap: () => {
               Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (ctx) => ProfileScreen()))
+                  .push(MaterialPageRoute(builder: (ctx) => ProfileScrn()))
             },
           ),
           ListTile(
@@ -49,16 +47,9 @@ class NavDrawer extends StatelessWidget {
           //   onTap: () => {Navigator.of(context).pop()},
           // ),
           ListTile(
-            subtitle: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                
-                SignOutButton(
-                  variant: ButtonVariant.text,
-                  
-                )
-              ],
-            ),
+            leading: Icon(Icons.exit_to_app),
+            title: Text('Logout'),
+            onTap: () => {ExitApp(context)},
           ),
         ],
       ),
