@@ -1,5 +1,6 @@
 import 'package:Donobox/functions/checkuser.dart';
 import 'package:Donobox/reuseable/reuseable.dart';
+import 'package:Donobox/screens/auth/resetpassword.dart';
 import 'package:Donobox/screens/auth/signup.dart';
 import 'package:Donobox/screens/home/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -59,6 +60,14 @@ class _SigninScrnState extends State<SigninScrn> {
                       Navigator.push(context, MaterialPageRoute(builder: (ctx) => SigupScrn()));
                       
                   }),
+                  const SizedBox(
+                  height: 10,),
+                  GestureDetector(
+                    child: Text('Forget Password'),
+                    onTap:(){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ResetPassScrn()));
+                    }
+                  )
               ],
             ),
           ),

@@ -3,7 +3,7 @@ import 'package:Donobox/screens/home/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-void checkLogin(BuildContext ctx, usern, pass) {
+void checkLogin(BuildContext ctx, TextEditingController usern, TextEditingController pass) {
   FirebaseAuth.instance.signInWithEmailAndPassword(email: usern.text, password: pass.text).then((value) {
                      Navigator.of(ctx).pushAndRemoveUntil(MaterialPageRoute(builder: (ctx1) => HomeScreen()), (route) => false);
                   }).onError((error, stackTrace) {showDialog(
@@ -22,8 +22,8 @@ void checkLogin(BuildContext ctx, usern, pass) {
              );
 }
 
-  void checkSignup(BuildContext ctx,emailadd,pass1,pass2){
-    if(pass1 == pass2){
+  void checkSignup(BuildContext ctx,TextEditingController emailadd, TextEditingController pass1,TextEditingController pass2){
+    if(pass1.text == pass2.text){
      FirebaseAuth.instance.createUserWithEmailAndPassword
                   (email: emailadd.text, password: pass1.text).then((value) {
                       Navigator.of(ctx).pushAndRemoveUntil(MaterialPageRoute(builder: (ctx) => HomeScreen()), (route) => false);
