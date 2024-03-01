@@ -1,4 +1,5 @@
 import 'package:Donobox/functions/checkuser.dart';
+import 'package:Donobox/model/model.dart';
 import 'package:Donobox/reuseable/reuseable.dart';
 import 'package:Donobox/screens/home/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,7 +15,7 @@ class SigupScrn extends StatefulWidget {
 class _SigupScrnState extends State<SigupScrn> {
 
   final TextEditingController _namecontroller = TextEditingController();
-   final TextEditingController _emailcontroller = TextEditingController();
+  final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _usernamecontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
   final TextEditingController _confirmpasswordcontroller = TextEditingController();
@@ -64,7 +65,8 @@ class _SigupScrnState extends State<SigupScrn> {
                     height: 20,
                   ),
                   reButton('SigUp', true, () {
-                   checkSignup(context, _emailcontroller, _passwordcontroller, _confirmpasswordcontroller);
+                   checkSignup(context,_namecontroller, _emailcontroller.text, _usernamecontroller,_passwordcontroller.text, _confirmpasswordcontroller.text);
+                   
                   }),
                 ],
               ),

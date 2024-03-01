@@ -29,6 +29,8 @@ class AuthentcationServices {
   }
 }
 
+
+
 ExitApp(BuildContext context) {
   FirebaseAuth.instance.signOut().then((value) => {
      Navigator.of(context).pushAndRemoveUntil(

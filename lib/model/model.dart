@@ -30,13 +30,6 @@ class Filters {
 
 class DtAmount {
   final String Amount;
-
   DtAmount({required this.Amount});
 }
 
-
-class profile{
-  final tex;
-
-  profile({required this.tex});
-}
