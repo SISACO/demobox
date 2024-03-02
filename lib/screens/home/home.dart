@@ -1,9 +1,10 @@
 import 'package:Donobox/data/filter_data.dart';
 import 'package:Donobox/data/newpost_data.dart';
 import 'package:Donobox/model/model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:Donobox/screens/AmountAdd/AmountAdd.dart';
-import 'package:Donobox/screens/Donation/donation.dart';
+
 import 'package:Donobox/screens/details/details.dart';
 import 'package:Donobox/widgets/menubar/MenuBar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,7 +14,7 @@ import 'package:Donobox/core/app_export.dart';
 import 'package:Donobox/widgets/appbar/AppBar.dart';
 import 'package:Donobox/widgets/ten_item_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:Donobox/theme/theme_helper.dart';
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -96,30 +97,40 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Align(
                         alignment: Alignment.topCenter,
-                        child: ListView.separated(
-                          separatorBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(0.2).w,
-                              child: SizedBox(
-                                width: 11.w,
-                              ),
-                            );
-                          },
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          padding: EdgeInsets.only(bottom: 27).w,
-                          scrollDirection: Axis.vertical,
-                          itemCount: newpostlist.length,
-                          itemBuilder: (context, index) {
-                            final model = newpostlist[index];
-                            return Padding(
-                              padding: const EdgeInsets.all(14.0).w,
-                              child: newPost(
-                                model: model,
-                              ),
-                            );
-                          },
-                        ),
+                        child: StreamBuilder(
+                            stream: FirebaseFirestore.instance
+                                .collection("PostData")
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData) {
+                                return CircularProgressIndicator();
+                              } else {
+                                return ListView.separated(
+                                  separatorBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(0.2).w,
+                                      child: SizedBox(
+                                        width: 11.w,
+                                      ),
+                                    );
+                                  },
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  padding: EdgeInsets.only(bottom: 27).w,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: snapshot.data!.docs.length,
+                                  itemBuilder: (context, index) {
+                                    final model = newpostlist[index];
+                                    return Padding(
+                                      padding: const EdgeInsets.all(14.0).w,
+                                      child: newPost(
+                                        model: model,
+                                      ),
+                                    );
+                                  },
+                                );
+                              }
+                            }),
                       ),
                     ],
                   ),
