@@ -1,5 +1,6 @@
 import 'package:Donobox/screens/transaction/payment.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 TextField retextfield(
   String text,
@@ -71,4 +72,26 @@ ElevatedButton blckbtn(BuildContext ctx, String btntext, Function onTap) {
         btntext,
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ));
+}
+
+showSnackbar(BuildContext ctx , String messege){
+  return ScaffoldMessenger.of(ctx).showSnackBar(
+          SnackBar(
+            action: SnackBarAction(
+              label: 'Action',
+              onPressed: () {
+              },
+            ),
+            content: Text(messege),
+            duration: const Duration(milliseconds: 1500),
+            width: 350.0.w, // Width of the SnackBar.
+            padding: EdgeInsets.symmetric(
+              horizontal: 10.0.h, // Inner padding for SnackBar content.
+            ),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+        );
 }

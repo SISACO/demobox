@@ -1,6 +1,9 @@
 import 'package:Donobox/functions/checkuser.dart';
-import 'package:Donobox/functions/sharedpre_func.dart';
 import 'package:Donobox/reuseable/reuseable.dart';
+import 'package:Donobox/screens/auth/resetpassword.dart';
+import 'package:Donobox/screens/auth/signup.dart';
+import 'package:Donobox/screens/home/home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SigninScrn extends StatefulWidget {
@@ -13,6 +16,8 @@ class SigninScrn extends StatefulWidget {
 class _SigninScrnState extends State<SigninScrn> {
   final TextEditingController _usernamecontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
+  
+  get ctx => null;
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +49,25 @@ class _SigninScrnState extends State<SigninScrn> {
                   height: 20,
                 ),
                 reButton('Login', true, () {
-                  checkLogin(context, _usernamecontroller.text,
-                      _passwordcontroller.text);
-                })
+                  checkLogin(context, _usernamecontroller, _passwordcontroller);
+                }),
+                const SizedBox(
+                  height: 20,),
+                Text("Don't Have an Account?"),
+                const SizedBox(
+                  height: 10,),
+                  reButton('Register', false, (){
+                      Navigator.push(context, MaterialPageRoute(builder: (ctx) => SigupScrn()));
+                      
+                  }),
+                  const SizedBox(
+                  height: 10,),
+                  GestureDetector(
+                    child: Text('Forget Password'),
+                    onTap:(){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ResetPassScrn()));
+                    }
+                  )
               ],
             ),
           ),
