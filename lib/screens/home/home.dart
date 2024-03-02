@@ -15,7 +15,6 @@ import 'package:Donobox/widgets/appbar/AppBar.dart';
 import 'package:Donobox/widgets/ten_item_widget.dart';
 import 'package:flutter/material.dart';
 
-
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 

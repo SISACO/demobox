@@ -64,8 +64,9 @@ class _SigupScrnState extends State<SigupScrn> {
                   const SizedBox(
                     height: 20,
                   ),
+                  //AddUser(_namecontroller.text, _usernamecontroller.text)
                   reButton('SigUp', true, () {
-                   checkSignup(context,_namecontroller, _emailcontroller.text, _usernamecontroller,_passwordcontroller.text, _confirmpasswordcontroller.text);
+                  checkSignup(context,_namecontroller, _emailcontroller.text, _usernamecontroller,_passwordcontroller.text, _confirmpasswordcontroller.text);
                    
                   }),
                 ],

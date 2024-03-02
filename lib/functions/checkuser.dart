@@ -69,7 +69,11 @@ void checkLogin(BuildContext ctx, TextEditingController emailid, TextEditingCont
 
 Future <void> addUserdetail(BuildContext context, String _name,String _username,) async{
   await FirebaseFirestore.instance.collection('userData').add({
-    'Name' : _name,
-    'Username' : _username,
+    'name' : _name,
+    'username' : _username,
   });
 }
+
+
+
+

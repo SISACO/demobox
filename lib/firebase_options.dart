@@ -44,38 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAm8Xd55SPcfrauh8ggdOIwxk5xGEjCG1U',
-    appId: '1:1012299080197:web:7980e522586a4d8dc2326c',
-    messagingSenderId: '1012299080197',
-    projectId: 'Donobox-2024',
-    authDomain: 'Donobox-2024.firebaseapp.com',
-    storageBucket: 'Donobox-2024.appspot.com',
-    measurementId: 'G-NT63JYTD04',
+    apiKey: 'AIzaSyDqVqYisVTkgSNq0VV-awn9MK3c4Z7LjWM',
+    appId: '1:957388472374:web:b99bf4ddc2a0883386d897',
+    messagingSenderId: '957388472374',
+    projectId: 'donobox-9e4c6',
+    authDomain: 'donobox-9e4c6.firebaseapp.com',
+    storageBucket: 'donobox-9e4c6.appspot.com',
+    measurementId: 'G-SGTFL0KJ5E',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAk4iUauf67tenilUlQns0dtpoFQQHKnPg',
-    appId: '1:1012299080197:android:c6b052e041ab71bcc2326c',
-    messagingSenderId: '1012299080197',
-    projectId: 'Donobox-2024',
-    storageBucket: 'Donobox-2024.appspot.com',
+    apiKey: 'AIzaSyD09TEGEvsK9_mzTM-C7enaW5X8j45ZQTc',
+    appId: '1:957388472374:android:08bbc001e621623586d897',
+    messagingSenderId: '957388472374',
+    projectId: 'donobox-9e4c6',
+    storageBucket: 'donobox-9e4c6.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAFfWtATuRJ3daaJ-eH0bVAx51djQ2zxZo',
-    appId: '1:1012299080197:ios:a9193e1d6d57e2d6c2326c',
-    messagingSenderId: '1012299080197',
-    projectId: 'Donobox-2024',
-    storageBucket: 'Donobox-2024.appspot.com',
+    apiKey: 'AIzaSyDdto3eCYdpJZz77DUJDYptWV6dyzkx_-k',
+    appId: '1:957388472374:ios:64f1f67bf2483e7b86d897',
+    messagingSenderId: '957388472374',
+    projectId: 'donobox-9e4c6',
+    storageBucket: 'donobox-9e4c6.appspot.com',
     iosBundleId: 'com.example.Donobox',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAFfWtATuRJ3daaJ-eH0bVAx51djQ2zxZo',
-    appId: '1:1012299080197:ios:3cf4cafa7e670ffbc2326c',
-    messagingSenderId: '1012299080197',
-    projectId: 'Donobox-2024',
-    storageBucket: 'Donobox-2024.appspot.com',
+    apiKey: 'AIzaSyDdto3eCYdpJZz77DUJDYptWV6dyzkx_-k',
+    appId: '1:957388472374:ios:3c345890e8f852a386d897',
+    messagingSenderId: '957388472374',
+    projectId: 'donobox-9e4c6',
+    storageBucket: 'donobox-9e4c6.appspot.com',
     iosBundleId: 'com.example.Donobox.RunnerTests',
   );
 }
