@@ -1,22 +1,30 @@
 import 'package:Donobox/functions/checkuser.dart';
+import 'package:Donobox/functions/validation.dart';
 import 'package:Donobox/reuseable/reuseable.dart';
-import 'package:Donobox/screens/auth/resetpassword.dart';
+import 'package:Donobox/screens/auth/resetpass.dart';
 import 'package:Donobox/screens/auth/signup.dart';
 import 'package:Donobox/screens/home/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SigninScrn extends StatefulWidget {
-  const SigninScrn({super.key});
+  SigninScrn({super.key});
 
   @override
   State<SigninScrn> createState() => _SigninScrnState();
 }
 
 class _SigninScrnState extends State<SigninScrn> {
-  final TextEditingController _usernamecontroller = TextEditingController();
+  final TextEditingController _emailcontroller = TextEditingController();
+
   final TextEditingController _passwordcontroller = TextEditingController();
-  
+
+  bool hidetext = true;
+  String errorMsg = '';
+
+  final formkey = GlobalKey<FormState>();
+
   get ctx => null;
 
   @override
@@ -26,49 +34,217 @@ class _SigninScrnState extends State<SigninScrn> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text('Welcome'),
-          Container(
-            margin: const EdgeInsets.all(20),
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-                border:
-                    Border.all(color: const Color.fromARGB(255, 255, 217, 0)),
-                borderRadius: const BorderRadius.all(Radius.circular(15))),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 20,
+          const Text(
+            'Welcome Back',
+            style: TextStyle(fontSize: 23.0),
+          ),
+          SingleChildScrollView(
+            child: Container(
+              margin: const EdgeInsets.all(18).h,
+              padding: const EdgeInsets.all(18).h,
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      color: const Color.fromARGB(255, 255, 217, 0),
+                      width: 2.0),
+                  borderRadius: const BorderRadius.all(Radius.circular(15)).r),
+              child: Form(
+                key: formkey,
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      controller: _emailcontroller,
+                      validator: validateEmail,
+                      cursorColor: const Color.fromARGB(255, 214, 196, 4),
+                      style: TextStyle(color: Colors.black12.withOpacity(0.9)),
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.email,
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.8),
+                          size: 20,
+                        ),
+                        labelText: 'Email',
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(
+                            color: const Color.fromARGB(255, 199, 40, 40),
+                            width: 1.0,
+                          ),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(
+                            color: const Color.fromARGB(255, 199, 40, 40),
+                            width: 1.0,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                            width: 1.0,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(
+                            color: Color.fromARGB(255, 255, 217, 0),
+                          ),
+                        ),
+                        labelStyle: TextStyle(
+                            color: const Color.fromARGB(255, 0, 0, 0)
+                                .withOpacity(0.4)),
+                        filled: true,
+                        floatingLabelBehavior: FloatingLabelBehavior.auto,
+                        fillColor: Colors.white.withOpacity(0.3),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      controller: _passwordcontroller,
+                      validator: validatePass,
+                      obscureText: hidetext,
+                      cursorColor: const Color.fromARGB(255, 214, 196, 4),
+                      style: TextStyle(color: Colors.black12.withOpacity(0.9)),
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                hidetext = !hidetext;
+                              });
+                            },
+                            icon: hidetext
+                                ? Icon(Icons.visibility)
+                                : Icon(Icons.visibility_off)),
+                        prefixIcon: Icon(
+                          Icons.lock_person_outlined,
+                          color: const Color.fromARGB(255, 0, 0, 0)
+                              .withOpacity(0.8),
+                          size: 20,
+                        ),
+                        labelText: 'Password',
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(
+                            color: const Color.fromARGB(255, 199, 40, 40),
+                            width: 1.0,
+                          ),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(
+                            color: const Color.fromARGB(255, 199, 40, 40),
+                            width: 1.0,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                            width: 1.0,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(
+                            color: Color.fromARGB(255, 255, 217, 0),
+                          ),
+                        ),
+                        labelStyle: TextStyle(
+                            color: const Color.fromARGB(255, 0, 0, 0)
+                                .withOpacity(0.4)),
+                        filled: true,
+                        floatingLabelBehavior: FloatingLabelBehavior.auto,
+                        fillColor: Colors.white.withOpacity(0.3),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 190.0).h,
+                      child: GestureDetector(
+                          child: Text(
+                            'Forget Password',
+                            style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: Colors.cyan),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ResetpassScrn()));
+                          }),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    reButton('Login', true, () async {
+                      if (formkey.currentState!.validate()) {
+                        // signinUser(ctx,_emailcontroller, _passwordcontroller);
+                        // checkLogin(ctx, _emailcontroller, _passwordcontroller);
+                        try {
+                          await FirebaseAuth.instance
+                              .signInWithEmailAndPassword(
+                                  email: _emailcontroller.text,
+                                  password: _passwordcontroller.text)
+                              .then((value) {
+                            Navigator.of(ctx).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                    builder: (ctx1) => HomeScreen()),
+                                (route) => false);
+                          });
+                        } on FirebaseAuthException catch (error) {
+                          errorMsg = error.message!;
+                          showDialog(
+                              context: ctx,
+                              builder: (BuildContext context) => AlertDialog(
+                                    content: Text(errorMsg),
+                                    actions: [
+                                      TextButton.icon(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          icon:
+                                              const Icon(Icons.refresh_rounded),
+                                          label: const Text('Ty agian'))
+                                    ],
+                                  ));
+                        }
+                      }
+                      setState(() {});
+                    }),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Don't Have an Account?"),
+                        GestureDetector(
+                            child: Text(
+                              'Register',
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  color: Colors.cyan),
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (ctx) => SigupScrn()));
+                            }),
+                      ],
+                    ),
+                  ],
                 ),
-                retextfield(
-                    "Username", Icons.person, false, _usernamecontroller),
-                const SizedBox(
-                  height: 20,
-                ),
-                retextfield("Password", Icons.lock, true, _passwordcontroller),
-                const SizedBox(
-                  height: 20,
-                ),
-                reButton('Login', true, () {
-                  checkLogin(context, _usernamecontroller, _passwordcontroller);
-                }),
-                const SizedBox(
-                  height: 20,),
-                Text("Don't Have an Account?"),
-                const SizedBox(
-                  height: 10,),
-                  reButton('Register', false, (){
-                      Navigator.push(context, MaterialPageRoute(builder: (ctx) => SigupScrn()));
-                      
-                  }),
-                  const SizedBox(
-                  height: 10,),
-                  GestureDetector(
-                    child: Text('Forget Password'),
-                    onTap:(){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ResetPassScrn()));
-                    }
-                  )
-              ],
+              ),
             ),
           ),
         ],

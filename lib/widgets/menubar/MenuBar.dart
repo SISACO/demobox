@@ -1,5 +1,3 @@
-
-
 import 'package:Donobox/functions/auth_gate.dart';
 import 'package:Donobox/screens/AmountAdd/AmountAdd.dart';
 import 'package:Donobox/screens/profile/profile.dart';

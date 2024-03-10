@@ -34,7 +34,7 @@ class AuthentcationServices {
 ExitApp(BuildContext context) {
   FirebaseAuth.instance.signOut().then((value) => {
      Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (ctx) => const SigninScrn()),
+      MaterialPageRoute(builder: (ctx) => SigninScrn()),
       (route) => false)
   });
  
