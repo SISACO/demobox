@@ -1,5 +1,6 @@
 import 'package:Donobox/functions/auth_gate.dart';
 import 'package:Donobox/screens/AmountAdd/AmountAdd.dart';
+import 'package:Donobox/screens/RequestForm/RequestForm.dart';
 import 'package:Donobox/screens/profile/profile.dart';
 import 'package:Donobox/screens/transaction/payment.dart';
 import 'package:flutter/material.dart';
@@ -39,11 +40,14 @@ class NavDrawer extends StatelessWidget {
                       showAppBar: true,
                     ))),
           ),
-          // ListTile(
-          //   leading: Icon(Icons.border_color),
-          //   title: Text('Feedback'),
-          //   onTap: () => {Navigator.of(context).pop()},
-          // ),
+          ListTile(
+            leading: Icon(Icons.border_color),
+            title: Text('Post Request'),
+            onTap: () => {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (ctx) => PostRequestForm()))
+            },
+          ),
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('Logout'),

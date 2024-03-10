@@ -1,6 +1,7 @@
 import 'package:Donobox/data/filter_data.dart';
 import 'package:Donobox/data/newpost_data.dart';
 import 'package:Donobox/model/model.dart';
+import 'package:Donobox/screens/FiltersScreens/SearchFilterScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:Donobox/screens/AmountAdd/AmountAdd.dart';
@@ -44,41 +45,7 @@ class HomeScreen extends StatelessWidget {
                   SearchBarApp(),
                   SizedBox(height: 17.h),
                   //Catogory section
-                  Stack(
-                    children: [
-                      Align(
-                        alignment: Alignment.topCenter,
-                        child: SizedBox(
-                          height: 125.h,
-                          child: ListView.separated(
-                            padding: EdgeInsets.only(bottom: 27).w,
-                            scrollDirection: Axis.horizontal,
-                            separatorBuilder: (
-                              context,
-                              index,
-                            ) {
-                              return Padding(
-                                padding: const EdgeInsets.all(0.6).w,
-                                child: SizedBox(
-                                  width: 20.w,
-                                ),
-                              );
-                            },
-                            itemCount: filterslist.length,
-                            itemBuilder: (context, index) {
-                              final fmodel = filterslist[index];
-                              return Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 6).w,
-                                  child: TenItemWidget(
-                                    fmodel: fmodel,
-                                  ));
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
+                  CatogorySection(),
                   Row(
                     children: [
                       Padding(
@@ -100,7 +67,10 @@ class HomeScreen extends StatelessWidget {
                             stream: FirebaseFirestore.instance
                                 .collection("PostData")
                                 .snapshots(),
-                            builder: (context, snapshot) {
+                            builder: (
+                              context,
+                              AsyncSnapshot<QuerySnapshot> snapshot,
+                            ) {
                               if (!snapshot.hasData) {
                                 return CircularProgressIndicator();
                               } else {
@@ -118,14 +88,29 @@ class HomeScreen extends StatelessWidget {
                                   padding: EdgeInsets.only(bottom: 27).w,
                                   scrollDirection: Axis.vertical,
                                   itemCount: snapshot.data!.docs.length,
-                                  itemBuilder: (context, index) {
-                                    final model = newpostlist[index];
+                                  itemBuilder: (
+                                    context,
+                                    index,
+                                  ) {
+                                    final DocumentSnapshot document =
+                                        snapshot.data!.docs[index];
+                                    String postId = document.id;
                                     return Padding(
-                                      padding: const EdgeInsets.all(14.0).w,
-                                      child: newPost(
-                                        model: model,
-                                      ),
-                                    );
+                                        padding: const EdgeInsets.all(14.0).w,
+                                        child: newPost(
+                                            Postid: postId,
+                                            Image: document["Postimage"],
+                                            title: document["PostTitle"],
+                                            postprogress:
+                                                document["PostProgress"]
+                                                    .toString(),
+                                            reqamount:
+                                                document["RequestAmount"],
+                                            progressamount:
+                                                document["ProgressAmount"]
+                                                    .toString(),
+                                            description:
+                                                document["PostDescription"]));
                                   },
                                 );
                               }
@@ -141,9 +126,68 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
+class CatogorySection extends StatelessWidget {
+  const CatogorySection({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Align(
+          alignment: Alignment.topCenter,
+          child: SizedBox(
+            height: 125.h,
+            child: ListView.separated(
+              padding: EdgeInsets.only(bottom: 27).w,
+              scrollDirection: Axis.horizontal,
+              separatorBuilder: (
+                context,
+                index,
+              ) {
+                return Padding(
+                  padding: const EdgeInsets.all(0.6).w,
+                  child: SizedBox(
+                    width: 20.w,
+                  ),
+                );
+              },
+              itemCount: filterslist.length,
+              itemBuilder: (context, index) {
+                final fmodel = filterslist[index];
+                return Container(
+                    margin: EdgeInsets.symmetric(horizontal: 6).w,
+                    child: TenItemWidget(
+                      fmodel: fmodel,
+                    ));
+              },
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class newPost extends StatelessWidget {
-  final NewPost model;
-  const newPost({super.key, required this.model});
+  final Image;
+  final title;
+  final postprogress;
+  final reqamount;
+  final progressamount;
+  final description;
+  final Postid;
+
+  newPost(
+      {super.key,
+      required this.Image,
+      required this.title,
+      required this.postprogress,
+      required this.reqamount,
+      required this.progressamount,
+      required this.description,
+      required this.Postid});
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +205,7 @@ class newPost extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(model.img[0]),
+                    image: NetworkImage(Image),
                     fit: BoxFit.fill,
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(9)),
@@ -176,7 +220,7 @@ class newPost extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0).w,
                 child: Text(
-                  model.slogan,
+                  title,
                   style: TextStyle(fontSize: 16.sp),
                 ),
               )
@@ -188,7 +232,7 @@ class newPost extends StatelessWidget {
               LinearPercentIndicator(
                 width: 360.0.w,
                 lineHeight: 6.0,
-                percent: model.linear,
+                percent: double.parse(postprogress) / 100.0,
                 barRadius: Radius.circular(3),
                 progressColor: PrimaryColors().amber300,
               )
@@ -202,21 +246,21 @@ class newPost extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      model.gefund,
+                      "\u{20B9}" + progressamount,
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 15.sp),
                     ),
                     Text(" / ",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 15.sp)),
-                    Text(model.refund,
+                    Text("\u{20B9}" + reqamount,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 15.sp,
                             color: Color(0X498F8F8F))),
                     Padding(
                       padding: const EdgeInsets.only(left: 190.0).w,
-                      child: Text(model.perc,
+                      child: Text(postprogress + "%",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 15.sp)),
                     )
@@ -230,7 +274,7 @@ class newPost extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0).w,
                 child: Text(
-                  model.des,
+                  description,
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                   ),
@@ -254,9 +298,7 @@ class newPost extends StatelessWidget {
                   ),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (ctx1) => DetailsScrn(
-                              model: model,
-                            )));
+                        builder: (ctx1) => DetailsScrn(postid: Postid)));
                   },
                   child: Text(
                     'See more',
@@ -282,9 +324,25 @@ class SearchBarApp extends StatefulWidget {
 
 class _SearchBarAppState extends State<SearchBarApp> {
   bool isDark = false;
+  late TextEditingController _searchController;
+  String _searchQuery = '';
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    _searchController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(
+    BuildContext context,
+  ) {
     final ThemeData themeData = ThemeData(
         useMaterial3: true,
         brightness: isDark ? Brightness.dark : Brightness.light);
@@ -293,10 +351,17 @@ class _SearchBarAppState extends State<SearchBarApp> {
       hintText: "Search Here",
       padding: const MaterialStatePropertyAll<EdgeInsets>(
           EdgeInsets.symmetric(horizontal: 16.0)),
-      onTap: () {
-        ;
+      onSubmitted: (value) {
+        SearchResultsScreen(SearchData: _searchQuery);
       },
-      onChanged: (_) {
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (ctx1) => SearchResultsScreen(SearchData: _searchQuery)));
+      },
+      onChanged: (value) {
+        setState(() {
+          _searchQuery = value;
+        });
         ;
       },
       leading: const Icon(Icons.search),
