@@ -20,6 +20,21 @@ class _SigninScrnState extends State<SigninScrn> {
 
   final TextEditingController _passwordcontroller = TextEditingController();
 
+  signInWithEmailAndPassword() async {
+    try {
+  await FirebaseAuth.instance.signInWithEmailAndPassword(
+    email: _emailcontroller.text,
+    password: _passwordcontroller.text
+  );
+} on FirebaseAuthException catch (e) {
+  if (e.code == 'user-not-found') {
+    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No user found for that email.')));
+  } else if (e.code == 'wrong-password') {
+    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Wrong password provided for that user.')));
+  }
+}
+  }
+
   bool hidetext = true;
   String errorMsg = '';
 
@@ -29,6 +44,7 @@ class _SigninScrnState extends State<SigninScrn> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -189,34 +205,7 @@ class _SigninScrnState extends State<SigninScrn> {
                       if (formkey.currentState!.validate()) {
                         // signinUser(ctx,_emailcontroller, _passwordcontroller);
                         // checkLogin(ctx, _emailcontroller, _passwordcontroller);
-                        try {
-                          await FirebaseAuth.instance
-                              .signInWithEmailAndPassword(
-                                  email: _emailcontroller.text,
-                                  password: _passwordcontroller.text)
-                              .then((value) {
-                            Navigator.of(ctx).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                                    builder: (ctx1) => HomeScreen()),
-                                (route) => false);
-                          });
-                        } on FirebaseAuthException catch (error) {
-                          errorMsg = error.message!;
-                          showDialog(
-                              context: ctx,
-                              builder: (BuildContext context) => AlertDialog(
-                                    content: Text(errorMsg),
-                                    actions: [
-                                      TextButton.icon(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          icon:
-                                              const Icon(Icons.refresh_rounded),
-                                          label: const Text('Ty agian'))
-                                    ],
-                                  ));
-                        }
+                        signInWithEmailAndPassword();
                       }
                       setState(() {});
                     }),
