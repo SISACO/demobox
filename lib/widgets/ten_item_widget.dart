@@ -1,5 +1,6 @@
 import 'package:Donobox/core/app_export.dart';
 import 'package:Donobox/model/model.dart';
+import 'package:Donobox/screens/FiltersScreens/CatagoryFilterScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -39,7 +40,13 @@ class TenItemWidget extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (ctx1) => CatogoryFilterScreen(
+                        Category: fmodel.t1,
+                      )));
+                      
+                    },
                     icon: fmodel.idol,
                     color: PrimaryColors().whiteA700,
                     iconSize: 30,
