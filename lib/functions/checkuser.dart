@@ -67,10 +67,16 @@ import 'package:flutter/material.dart';
 //     }
 // }
 
-Future<void> addUserdetail(String _name, String _emailadd,
+final FirebaseAuth auth = FirebaseAuth.instance;
+Future addUserdetail(String _name, String _emailadd,
     String _propic, int _userWallet) async {
+      CollectionReference users = FirebaseFirestore.instance.collection('userData');
+      FirebaseAuth auth =  FirebaseAuth.instance;
+      String uid = auth.currentUser!.uid.toString();
+      users.add({
   // final user = UserModel(id: '', myname: _name, myemail:_emailadd, myusername: _username, myprofilpic: _propic, mydonations: 0,);
-    await FirebaseFirestore.instance.collection('userData').add({
+    // await FirebaseFirestore.instance.collection('userData').add({
+      'uid' : uid,
       'name': _name,
       'email': _emailadd,
       // 'username' : _username,

@@ -1,11 +1,6 @@
 import 'package:Donobox/functions/checkuser.dart';
 import 'package:Donobox/functions/validation.dart';
-import 'package:Donobox/model/model.dart';
-import 'package:Donobox/reuseable/checkbox.dart';
 import 'package:Donobox/reuseable/reuseable.dart';
-import 'package:Donobox/screens/home/home.dart';
-import 'package:Donobox/widgets/alertbox.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:Donobox/widgets/appbar/AppBar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
