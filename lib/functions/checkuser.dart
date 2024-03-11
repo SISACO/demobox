@@ -121,7 +121,7 @@ Future signupUser(
                       Navigator.of(context).pop();
                     },
                     icon: const Icon(Icons.refresh_rounded),
-                    label: const Text('Ty agian'))
+                    label: const Text('Try agian'))
               ],
             ));
   }

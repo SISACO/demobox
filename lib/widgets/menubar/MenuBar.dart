@@ -2,9 +2,7 @@ import 'package:Donobox/functions/auth_gate.dart';
 import 'package:Donobox/screens/AmountAdd/AmountAdd.dart';
 import 'package:Donobox/screens/RequestForm/RequestForm.dart';
 import 'package:Donobox/screens/profile/account_screen.dart';
-import 'package:Donobox/screens/profile/profile.dart';
-import 'package:Donobox/screens/transaction/payment.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 
 

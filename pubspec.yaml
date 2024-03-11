@@ -35,7 +35,7 @@ dependencies:
   cached_network_image: ^3.3.0
   flutter_svg: ^2.0.9
   flutter_native_splash: ^2.3.7
-  google_fonts: ^6.1.0
+  
   flutter:
     sdk: flutter
   
@@ -50,6 +50,7 @@ dependencies:
   dropdown_search: ^5.0.6
   firebase_storage: ^11.6.0
   ionicons: ^0.2.2
+  google_fonts: 6.1.0
   
   
 
