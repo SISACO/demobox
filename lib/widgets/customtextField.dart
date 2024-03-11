@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:Donobox/core/app_export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,12 +13,18 @@ class CustomtextField extends StatelessWidget {
 
   IconData? iconField;
 
+   final TextEditingController? mycontroller;
+
+  
+
   CustomtextField(
       {super.key,
       required this.labelText,
       required this.iconField,
       required this.FieldH,
-      required this.FieldW});
+      required this.FieldW,
+      this.mycontroller
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +32,8 @@ class CustomtextField extends StatelessWidget {
       height: FieldH,
       width: FieldW,
       child: TextFormField(
+        
+        controller: mycontroller,
         cursorColor: Colors.grey,
         decoration: InputDecoration(
           border: InputBorder.none,

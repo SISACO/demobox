@@ -4,10 +4,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ProfileScrn extends StatelessWidget {
+class ProfileScrn extends StatefulWidget {
  ProfileScrn({super.key});
 
+  @override
+  State<ProfileScrn> createState() => _ProfileScrnState();
+}
+
+class _ProfileScrnState extends State<ProfileScrn> {
   FirebaseAuth _auth = FirebaseAuth.instance;
+
 
   @override
   Widget build(BuildContext context) {

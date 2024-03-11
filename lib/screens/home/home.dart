@@ -1,8 +1,10 @@
+
+
 import 'package:Donobox/data/filter_data.dart';
-import 'package:Donobox/data/newpost_data.dart';
-import 'package:Donobox/model/model.dart';
+
 import 'package:Donobox/screens/FiltersScreens/SearchFilterScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:Donobox/screens/AmountAdd/AmountAdd.dart';
 
@@ -324,56 +326,81 @@ class SearchBarApp extends StatefulWidget {
 
 class _SearchBarAppState extends State<SearchBarApp> {
   bool isDark = false;
-  late TextEditingController _searchController;
-  String _searchQuery = '';
 
-  @override
-  void initState() {
-    super.initState();
-    _searchController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(
     BuildContext context,
   ) {
-    final ThemeData themeData = ThemeData(
-        useMaterial3: true,
-        brightness: isDark ? Brightness.dark : Brightness.light);
 
-    return SearchBar(
-      hintText: "Search Here",
-      padding: const MaterialStatePropertyAll<EdgeInsets>(
-          EdgeInsets.symmetric(horizontal: 16.0)),
-      onSubmitted: (value) {
-        SearchResultsScreen(SearchData: _searchQuery);
-      },
-      onTap: () {
+    return Container(
+        decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(25),
+    boxShadow: [
+      BoxShadow(
+        color: Color.fromARGB(255, 206, 204, 204).withOpacity(0.5),
+        spreadRadius: 5,
+        blurRadius: 7,
+        offset: Offset(0, 5), // changes position of shadow
+      ),
+    ],
+  ),
+          margin: EdgeInsets.only(top: 2, left: 2, right: 2),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Flexible(
+                    flex: 1,
+                    child: TextField(
+                      
+                      readOnly: true,
+                            onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (ctx1) => SearchResultsScreen(SearchData: _searchQuery)));
+            builder: (ctx1) => SearchResultsScreen()));
       },
-      onChanged: (value) {
-        setState(() {
-          _searchQuery = value;
-        });
-        ;
-      },
-      leading: const Icon(Icons.search),
-    );
+                      cursorColor: Colors.grey,
+                      decoration: InputDecoration(
+                      
+                        fillColor: Colors.white,
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25),
+                          borderSide: BorderSide.none
+                          
+                        ),
+                        hintText: 'Search Here',
+                        hintStyle: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 18
+                        ),
+                        prefixIcon: Container(
+                          padding: EdgeInsets.all(15),
+                          child: Icon(Icons.search,color: Colors.black,),
+                          width: 18,
+                        )
+                      ),
+                    ),
+                  ),
+ 
+                ],
+              )
+            ],
+          ),
+        );
   }
 }
 
-class UserWallet extends StatelessWidget {
+class UserWallet extends StatefulWidget {
   const UserWallet({
     super.key,
   });
 
+  @override
+  State<UserWallet> createState() => _UserWalletState();
+}
+
+class _UserWalletState extends State<UserWallet> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -382,85 +409,117 @@ class UserWallet extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(9)).w),
       height: 120.h,
       width: 370.w,
-      child: Row(
-        children: [
-          SizedBox(
-            height: 88.h,
-            width: 88.w,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    height: 65.h,
-                    width: 65.w,
-                    decoration: BoxDecoration(
-                      color: appTheme.gray200,
-                      borderRadius: BorderRadius.circular(
-                        34,
+      child: 
+
+         
+          StreamBuilder<DocumentSnapshot>(
+            stream: getUserDataStream(uid),
+            builder: (context, snapshot) {
+
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+      return CircularProgressIndicator();
+    }
+    if (snapshot.hasError) {
+      return Text('Error: ${snapshot.error}');
+    }
+var data = snapshot.data!.data() as Map<String, dynamic>?;
+
+                                        
+  
+    if (data != null) {
+              return Row(
+                children: [
+                  SizedBox(
+                    height: 88.h,
+                    width: 88.w,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Align(
+                          alignment: Alignment.center,
+                          child: Container(
+                            height: 65.h,
+                            width: 65.w,
+                            decoration: BoxDecoration(
+                              color: appTheme.gray200,
+                              borderRadius: BorderRadius.circular(
+                                34,
+                              ),
+                            ),
+                          ),
+                        ),
+                        CustomImageView(
+                          imagePath: ImageConstant.imgUser,
+                          height: 35.h,
+                          width: 35.w,
+                          alignment: Alignment.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: 17,
+                    ).w,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 21).w,
+                        child: Text(
+                          data["name"]+"'s Wallet",
+                          style: TextStyle(color: Color(0XFF121212), fontSize: 15.sp),
+                        ),
+                      ),
+                      SizedBox(height: 7),
+                     
+                      Text("\u{20B9}" + data["wallet"].toString(),
+                          style: TextStyle(
+                              color: Color(0XFF121212),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30.sp)),
+                    ],
+                  ),
+                  Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.all(25).w,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                          side: BorderSide(width: 1, color: Colors.black),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                            20,
+                          ))),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (ctx) => AddAmount(
+                                  showAppBar: true,
+                                )));
+                      },
+                      child: Text(
+                        'Top up',
+                        style:
+                            TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
-                ),
-                CustomImageView(
-                  imagePath: ImageConstant.imgUser,
-                  height: 35.h,
-                  width: 35.w,
-                  alignment: Alignment.center,
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              top: 17,
-            ).w,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 21).w,
-                child: Text(
-                  "User wallet",
-                  style: TextStyle(color: Color(0XFF121212), fontSize: 15.sp),
-                ),
-              ),
-              SizedBox(height: 7),
-              Text("\u{20B9}0.00",
-                  style: TextStyle(
-                      color: Color(0XFF121212),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30.sp)),
-            ],
-          ),
-          Spacer(),
-          Padding(
-            padding: const EdgeInsets.all(25).w,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
-                  side: BorderSide(width: 1, color: Colors.black),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                    20,
-                  ))),
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (ctx) => AddAmount(
-                          showAppBar: true,
-                        )));
-              },
-              child: Text(
-                'Top up',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-        ],
-      ),
+                ],
+              );
+            } else{
+              return Text("Error Occured");
+            }}
+          )
+        
+     
     );
   }
 }
+User? user = FirebaseAuth.instance.currentUser;
+ final uid = user!.uid;
+
+ Stream<DocumentSnapshot> getUserDataStream(String uid) {
+  return FirebaseFirestore.instance.collection('userData').doc(uid).snapshots();
+}
+
