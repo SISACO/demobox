@@ -112,9 +112,9 @@ class _PostRequestFormState extends State<PostRequestForm> {
 
   ImagePicker _imagePicker = ImagePicker();
 
-  final int _PostProgress = 0;
+  final double _PostProgress = 0;
 
-  final int _ProgressAmount = 0;
+  final double _ProgressAmount = 0;
 
   final bool _isactive = false;
 
@@ -230,8 +230,8 @@ class _PostRequestFormState extends State<PostRequestForm> {
 
     String downloadUrl = await uploadImageToFirebaseStorage(image!);
     String requestAmountText = _ReqAmount.text;
-    var requestamount = int.tryParse(requestAmountText);
-int? requestAmount;
+    var requestamount = double.tryParse(requestAmountText);
+double? requestAmount;
     UploadToFirebase(
         posttitle: PostTitle.text,
         postcatogory: dropdownvalue,
@@ -257,7 +257,7 @@ int? requestAmount;
   UploadToFirebase(
       {String? posttitle,
       String? postcatogory,
-      int? requestamount,
+      double? requestamount,
       String? postdescription,
       String? postcommunity,
       String? postupi,

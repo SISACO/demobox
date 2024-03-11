@@ -3,6 +3,7 @@ import 'package:Donobox/functions/validation.dart';
 import 'package:Donobox/reuseable/reuseable.dart';
 import 'package:flutter/material.dart';
 import 'package:Donobox/widgets/appbar/AppBar.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SigupScrn extends StatefulWidget {
@@ -19,6 +20,12 @@ class _SigupScrnState extends State<SigupScrn> {
   final TextEditingController _passwordcontroller = TextEditingController();
   final TextEditingController _confirmpasswordcontroller =
       TextEditingController();
+  var items = [
+    'Female',
+    'Male',
+    'Others',
+  ];
+  String dropdownvalue = 'Others';
   bool hidetext = true;
 
   bool agreeTerms = false;
@@ -159,6 +166,66 @@ class _SigupScrnState extends State<SigupScrn> {
                     const SizedBox(
                       height: 20,
                     ),
+                    DropdownButtonFormField(
+                      iconEnabledColor: Colors.amber,
+                      // Initial Value
+                      value: dropdownvalue,
+                      isExpanded: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Required';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Gender',
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(
+                            color: const Color.fromARGB(255, 199, 40, 40),
+                            width: 1.0,
+                          ),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(
+                            color: const Color.fromARGB(255, 199, 40, 40),
+                            width: 1.0,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                            width: 1.0,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(
+                            color: Color.fromARGB(255, 255, 217, 0),
+                          ),
+                        ),
+                      ),
+                      // Down Arrow Icon
+                      icon: const Icon(Icons.keyboard_arrow_down),
+
+                      // Array list of items
+                      items: items.map((String items) {
+                        return DropdownMenuItem(
+                          value: items,
+                          child: Text(items),
+                        );
+                      }).toList(),
+                      // After selecting the desired option,it will
+                      // change button value to selected value
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownvalue = newValue!;
+                        });
+                      },
+                    ),
+                    SizedBox(height: 20,),
 
                     // //username
                     // TextFormField(
@@ -346,7 +413,6 @@ class _SigupScrnState extends State<SigupScrn> {
                         Flexible(
                           child: const Text(
                             'I have read and accept terms and conditions',
-                            
                           ),
                         )
                       ],
@@ -356,11 +422,15 @@ class _SigupScrnState extends State<SigupScrn> {
                     reButton('SigUp', true, () {
                       // checkSignup(context,_namecontroller, _emailcontroller.text, _usernamecontroller,_passwordcontroller.text, _confirmpasswordcontroller.text);
                       if (formkey.currentState!.validate()) {
-                        signupUser(context, _namecontroller, _emailcontroller, _usernamecontroller, _passwordcontroller);
+                        signupUser(
+                            context,
+                            _namecontroller,
+                            _emailcontroller,
+                            _usernamecontroller,
+                            _passwordcontroller,
+                            dropdownvalue);
                       }
-                      setState(() {
-                        
-                      });
+                      setState(() {});
                     }),
                   ],
                 ),

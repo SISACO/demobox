@@ -19,8 +19,9 @@ import 'package:Donobox/widgets/ten_item_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
 
+  
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -395,12 +396,16 @@ class UserWallet extends StatefulWidget {
   const UserWallet({
     super.key,
   });
-
+ 
   @override
   State<UserWallet> createState() => _UserWalletState();
 }
 
 class _UserWalletState extends State<UserWallet> {
+
+  String uwallet='';
+  String name='';
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -412,9 +417,9 @@ class _UserWalletState extends State<UserWallet> {
       child: 
 
          
-          StreamBuilder<DocumentSnapshot>(
-            stream: getUserDataStream(uid),
-            builder: (context, snapshot) {
+          FutureBuilder(
+          future: getwallet(),
+          builder:(context, snapshot) {
 
                   if (snapshot.connectionState == ConnectionState.waiting) {
       return CircularProgressIndicator();
@@ -422,11 +427,7 @@ class _UserWalletState extends State<UserWallet> {
     if (snapshot.hasError) {
       return Text('Error: ${snapshot.error}');
     }
-var data = snapshot.data!.data() as Map<String, dynamic>?;
-
-                                        
-  
-    if (data != null) {
+    else{
               return Row(
                 children: [
                   SizedBox(
@@ -468,13 +469,13 @@ var data = snapshot.data!.data() as Map<String, dynamic>?;
                       Padding(
                         padding: const EdgeInsets.only(top: 21).w,
                         child: Text(
-                          data["name"]+"'s Wallet",
+                          "$name's Wallet",
                           style: TextStyle(color: Color(0XFF121212), fontSize: 15.sp),
                         ),
                       ),
                       SizedBox(height: 7),
                      
-                      Text("\u{20B9}" + data["wallet"].toString(),
+                      Text("\u{20B9} $uwallet",
                           style: TextStyle(
                               color: Color(0XFF121212),
                               fontWeight: FontWeight.bold,
@@ -507,19 +508,23 @@ var data = snapshot.data!.data() as Map<String, dynamic>?;
                   ),
                 ],
               );
-            } else{
-              return Text("Error Occured");
-            }}
+            } 
+            }
           )
-        
-     
     );
   }
+  getwallet() async {
+  final firebaseuser = FirebaseAuth.instance.currentUser;
+    if(firebaseuser !=null){
+      await FirebaseFirestore.instance.collection('userData').doc(firebaseuser.uid)
+      .get().then((value) {
+        name = value.data()!['name'];
+        uwallet = value.data()!["wallet"].toString();
+      }).catchError((e){
+        print(e);
+      });
+    }
 }
-User? user = FirebaseAuth.instance.currentUser;
- final uid = user!.uid;
 
- Stream<DocumentSnapshot> getUserDataStream(String uid) {
-  return FirebaseFirestore.instance.collection('userData').doc(uid).snapshots();
 }
 

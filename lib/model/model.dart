@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NewPost {
-  final int id;
+  final double id;
   final List img;
   final String slogan;
   final double linear;
@@ -21,7 +21,7 @@ class NewPost {
 }
 
 class Filters {
-  final int id;
+  final double id;
   final Icon idol;
   final String t1;
 
