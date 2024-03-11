@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:Donobox/functions/checkuser.dart';
 import 'package:Donobox/functions/validation.dart';
 import 'package:Donobox/reuseable/reuseable.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:Donobox/widgets/appbar/AppBar.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SigupScrn extends StatefulWidget {
   const SigupScrn({super.key});
@@ -30,7 +34,7 @@ class _SigupScrnState extends State<SigupScrn> {
 
   bool agreeTerms = false;
   bool isChanged = false;
-
+  String imgUrl = '';
   final formkey = GlobalKey<FormState>();
 
   @override
@@ -60,7 +64,24 @@ class _SigupScrnState extends State<SigupScrn> {
                     const SizedBox(
                       height: 20,
                     ),
+                    //avatar
+                    IconButton(onPressed: () async {
+                      ImagePicker imagePicker = ImagePicker();
+                      XFile ?file = await imagePicker.pickImage(source: ImageSource.gallery);
+                      if(file==null) return;
+                      String uniq = DateTime.now().millisecondsSinceEpoch.toString();
 
+                      Reference referenceRoot = FirebaseStorage.instance.ref();
+                      Reference referenceDirImages = referenceRoot.child('profile');
+
+                      Reference referenceImageUpload = referenceDirImages.child(uniq);
+                    try{
+                      await referenceImageUpload.putFile(File(file!.path));
+                      imgUrl = await referenceImageUpload.getDownloadURL();
+                    }catch(e){
+                      print(e);
+                    }
+                    }, icon: Icon(Icons.photo_size_select_large_outlined)),
                     //name
                     TextFormField(
                       controller: _namecontroller,
@@ -420,6 +441,12 @@ class _SigupScrnState extends State<SigupScrn> {
 
                     //AddUser(_namecontroller.text, _usernamecontroller.text)
                     reButton('SigUp', true, () {
+                      if(imgUrl.isEmpty){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Upload a profile picture'))
+                        );
+                        return;
+                      }
                       // checkSignup(context,_namecontroller, _emailcontroller.text, _usernamecontroller,_passwordcontroller.text, _confirmpasswordcontroller.text);
                       if (formkey.currentState!.validate()) {
                         signupUser(
@@ -428,6 +455,7 @@ class _SigupScrnState extends State<SigupScrn> {
                             _emailcontroller,
                             _usernamecontroller,
                             _passwordcontroller,
+                            imgUrl,
                             dropdownvalue);
                       }
                       setState(() {});

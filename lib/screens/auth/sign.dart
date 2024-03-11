@@ -25,7 +25,9 @@ class _SigninScrnState extends State<SigninScrn> {
   await FirebaseAuth.instance.signInWithEmailAndPassword(
     email: _emailcontroller.text,
     password: _passwordcontroller.text
-  );
+  ).then((value) {
+
+  });
 } on FirebaseAuthException catch (e) {
   if (e.code == 'user-not-found') {
     return ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No user found for that email.')));

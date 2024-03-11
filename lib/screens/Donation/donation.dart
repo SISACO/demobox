@@ -54,7 +54,9 @@ class DonationScrn extends StatelessWidget {
                 Text("Accept Terms & Conditions"),
               ],
             ),
-            blckbtn(context, 'Pay Now', () {}),
+            blckbtn(context, 'Pay Now', () {
+              
+            }),
           ],
         ),
       ),

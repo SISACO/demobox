@@ -94,6 +94,7 @@ Future signupUser(
     TextEditingController emailadd,
     TextEditingController usern,
     TextEditingController pass,
+    String img,
     String gender) async {
   String errorMsg = '';
   try {
@@ -107,7 +108,7 @@ Future signupUser(
             (route) => false);
       },
     );
-    addUserdetail(name.text, emailadd.text, '', 0,gender);
+    addUserdetail(name.text, emailadd.text, img , 0,gender);
   } on FirebaseAuthException catch (error) {
     errorMsg = error.message!;
     // ignore: use_build_context_synchronously
