@@ -22,17 +22,25 @@ class _SigninScrnState extends State<SigninScrn> {
 
   Future<void> signInWithEmailAndPassword(BuildContext context) async {
     try {
-  await FirebaseAuth.instance.signInWithEmailAndPassword(
-    email: _emailcontroller.text,
-    password: _passwordcontroller.text
-  );
-} on FirebaseAuthException catch (e) {
-  if (e.code == 'user-not-found') {
-    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No user found for that email.')));
-  } else if (e.code == 'wrong-password') {
-    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Wrong password provided for that user.')));
-  }
-}
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailcontroller.text,
+        password: _passwordcontroller.text,
+      );
+
+      
+    } on FirebaseAuthException catch (e) {
+      String errorMessage = 'Invalid credentials, Please Check it';
+      if (e.code == 'user-not-found') {
+        errorMessage = 'No user found for that email.';
+      } else if (e.code == 'wrong-password') {
+        errorMessage = 'Wrong password provided for that user.';
+      }
+      
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(errorMessage)),
+      );
+    }
   }
 
   bool hidetext = true;
