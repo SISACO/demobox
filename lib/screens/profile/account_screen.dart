@@ -172,7 +172,7 @@ class _AccountScreenState extends State<AccountScreen> {
           .then((value) {
         email = value.data()!["email"];
         name = value.data()!['name'];
-        propic = value.data()!["profilepic"].toString();
+        propic = value.data()!["profilepic"];
         uwallet = value.data()!['wallet'].toString();
         gender = value.data()!['gender'];
       }).catchError((e) {
