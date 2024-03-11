@@ -67,6 +67,7 @@ class _AccountScreenState extends State<AccountScreen> {
                    Row(
                     children: [
                       CircleAvatar(
+                        
                         backgroundImage: NetworkImage(propic),
                       )
                     ],

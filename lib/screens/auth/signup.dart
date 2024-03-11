@@ -6,7 +6,8 @@ import 'package:Donobox/reuseable/reuseable.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:Donobox/widgets/appbar/AppBar.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/services.dart';
+import 'package:path/path.dart' as Path;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -31,11 +32,26 @@ class _SigupScrnState extends State<SigupScrn> {
   ];
   String dropdownvalue = 'Others';
   bool hidetext = true;
-
+  File? image;
   bool agreeTerms = false;
   bool isChanged = false;
   String imgUrl = '';
   final formkey = GlobalKey<FormState>();
+
+  Future<String> uploadImageToFirebaseStorage(File imageFile) async {
+    try {
+      String fileName = Path.basename(imageFile.path);
+      Reference firebaseStorageRef =
+          FirebaseStorage.instance.ref().child('profile/$fileName');
+      UploadTask uploadTask = firebaseStorageRef.putFile(imageFile);
+      TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
+      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+      return downloadUrl;
+    } catch (e) {
+      print('Error uploading image to Firebase Storage: $e');
+      return Future.error('Failed to upload image');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,23 +81,33 @@ class _SigupScrnState extends State<SigupScrn> {
                       height: 20,
                     ),
                     //avatar
-                    IconButton(onPressed: () async {
-                      ImagePicker imagePicker = ImagePicker();
-                      XFile ?file = await imagePicker.pickImage(source: ImageSource.gallery);
-                      if(file==null) return;
-                      String uniq = DateTime.now().millisecondsSinceEpoch.toString();
 
-                      Reference referenceRoot = FirebaseStorage.instance.ref();
-                      Reference referenceDirImages = referenceRoot.child('profile');
-
-                      Reference referenceImageUpload = referenceDirImages.child(uniq);
-                    try{
-                      await referenceImageUpload.putFile(File(file!.path));
-                      imgUrl = await referenceImageUpload.getDownloadURL();
-                    }catch(e){
-                      print(e);
-                    }
-                    }, icon: Icon(Icons.photo_size_select_large_outlined)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        image == null
+                            ? Text('No image selected.')
+                            : CircleAvatar(
+                                maxRadius: 40,
+                                backgroundImage: FileImage(image!),
+                                // backgroundImage: NetworkImage("https://firebasestorage.googleapis.com/v0/b/donobox-9e4c6.appspot.com/o/images%2FIMG-20240309-WA0014.jpg?alt=media&token=fc6335ff-ef2d-4b19-9ea8-70ad4539e4e5"),
+                              )
+                      ],
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        pickImage();
+                      },
+                      child: Text(
+                        "Add Profile Photo",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.amberAccent),
+                    ),
+                    SizedBox(
+                      height: 22.h,
+                    ),
                     //name
                     TextFormField(
                       controller: _namecontroller,
@@ -246,7 +272,9 @@ class _SigupScrnState extends State<SigupScrn> {
                         });
                       },
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
 
                     // //username
                     // TextFormField(
@@ -440,19 +468,23 @@ class _SigupScrnState extends State<SigupScrn> {
                     ),
 
                     //AddUser(_namecontroller.text, _usernamecontroller.text)
-                    reButton('SignUp', true, () {
+                    reButton('SignUp', true, () async {
                       // checkSignup(context,_namecontroller, _emailcontroller.text, _usernamecontroller,_passwordcontroller.text, _confirmpasswordcontroller.text);
                       if (formkey.currentState!.validate()) {
+                        String downloadUrl =
+                            await uploadImageToFirebaseStorage(image!);
                         signupUser(
                             context,
                             _namecontroller,
                             _emailcontroller,
                             _usernamecontroller,
                             _passwordcontroller,
-                            imgUrl,
+                            downloadUrl,
                             dropdownvalue);
                       }
-                      setState(() {});
+                      setState(() {
+                        image = null;
+                      });
                     }),
                   ],
                 ),
@@ -463,4 +495,34 @@ class _SigupScrnState extends State<SigupScrn> {
       ),
     );
   }
+
+  Future pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+      final imageTemp = File(image.path);
+      setState(() => this.image = imageTemp);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
 }
+
+// async {
+                      
+//                       ImagePicker imagePicker = ImagePicker();
+//                       XFile ?file = await imagePicker.pickImage(source: ImageSource.gallery);
+//                       if(file==null) return;
+//                       String uniq = DateTime.now().millisecondsSinceEpoch.toString();
+
+//                       Reference referenceRoot = FirebaseStorage.instance.ref();
+//                       Reference referenceDirImages = referenceRoot.child('profile');
+
+//                       Reference referenceImageUpload = referenceDirImages.child(uniq);
+//                     try{
+//                       await referenceImageUpload.putFile(File(file!.path));
+//                       imgUrl = await referenceImageUpload.getDownloadURL();
+//                     }catch(e){
+//                       print(e);
+//                     }
+//                     }
