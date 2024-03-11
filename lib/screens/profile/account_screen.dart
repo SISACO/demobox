@@ -64,7 +64,13 @@ class _AccountScreenState extends State<AccountScreen> {
                 width: double.infinity,
                 child: Row(
                   children: [
-                    Image.network(('assets/images/avatarimg.jpg')),
+                   Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: NetworkImage(propic),
+                      )
+                    ],
+                   ),
                     const SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

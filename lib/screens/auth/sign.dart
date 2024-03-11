@@ -20,19 +20,27 @@ class _SigninScrnState extends State<SigninScrn> {
 
   final TextEditingController _passwordcontroller = TextEditingController();
 
-  signInWithEmailAndPassword() async {
+  Future<void> signInWithEmailAndPassword(BuildContext context) async {
     try {
-  await FirebaseAuth.instance.signInWithEmailAndPassword(
-    email: _emailcontroller.text,
-    password: _passwordcontroller.text
-  );
-} on FirebaseAuthException catch (e) {
-  if (e.code == 'user-not-found') {
-    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No user found for that email.')));
-  } else if (e.code == 'wrong-password') {
-    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Wrong password provided for that user.')));
-  }
-}
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailcontroller.text,
+        password: _passwordcontroller.text,
+      );
+
+      
+    } on FirebaseAuthException catch (e) {
+      String errorMessage = 'Invalid credentials, Please Check it';
+      if (e.code == 'user-not-found') {
+        errorMessage = 'No user found for that email.';
+      } else if (e.code == 'wrong-password') {
+        errorMessage = 'Wrong password provided for that user.';
+      }
+      
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(errorMessage)),
+      );
+    }
   }
 
   bool hidetext = true;
@@ -44,14 +52,13 @@ class _SigninScrnState extends State<SigninScrn> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
-            'Welcome Back',
+            'Welcome',
             style: TextStyle(fontSize: 23.0),
           ),
           SingleChildScrollView(
@@ -205,7 +212,8 @@ class _SigninScrnState extends State<SigninScrn> {
                       if (formkey.currentState!.validate()) {
                         // signinUser(ctx,_emailcontroller, _passwordcontroller);
                         // checkLogin(ctx, _emailcontroller, _passwordcontroller);
-                        signInWithEmailAndPassword();
+
+                        signInWithEmailAndPassword(context);
                       }
                       setState(() {});
                     }),

@@ -419,7 +419,7 @@ class _SigupScrnState extends State<SigupScrn> {
                     ),
 
                     //AddUser(_namecontroller.text, _usernamecontroller.text)
-                    reButton('SigUp', true, () {
+                    reButton('SignUp', true, () {
                       // checkSignup(context,_namecontroller, _emailcontroller.text, _usernamecontroller,_passwordcontroller.text, _confirmpasswordcontroller.text);
                       if (formkey.currentState!.validate()) {
                         signupUser(
