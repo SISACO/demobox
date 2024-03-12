@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:Donobox/screens/profile/edit_screen.dart';
 import 'package:Donobox/screens/profile/profilewidgets/forward_button.dart';
 import 'package:Donobox/widgets/appbar/AppBar.dart';
@@ -19,14 +21,49 @@ class AccountScreen extends StatefulWidget {
 
 class _AccountScreenState extends State<AccountScreen> {
 
+  bool isverified = false;
+  Timer?timer;
 
-  bool isDarkMode = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+      isverified = FirebaseAuth.instance.currentUser!.emailVerified;
+    if(!isverified){
+      verifyemail();
+
+      timer = Timer.periodic(Duration(seconds: 3), (_) { 
+        checkemail();
+      });
+    }
+  
+  }
+  @override
+  void dispose() {
+    timer?.cancel;
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  Future checkemail()async {
+    await FirebaseAuth.instance.currentUser!.reload();
+    setState(() {
+      isverified = FirebaseAuth.instance.currentUser!.emailVerified;
+    });
+    if(isverified) timer?.cancel();
+  }
 
   String email = '';
   String name = '';
   String uwallet = '';
   String propic = '';
   String gender = '';
+
+  @override
+  void setState(VoidCallback fn) {
+        isverified = FirebaseAuth.instance.currentUser!.emailVerified;
+    super.setState(fn);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,18 +101,15 @@ class _AccountScreenState extends State<AccountScreen> {
                 width: double.infinity,
                 child: Row(
                   children: [
-                   Row(
-                    children: [
-                      CircleAvatar(
-                        
-                        backgroundImage: NetworkImage(propic),
-                      )
-                    ],
-                   ),
                     const SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                          CircleAvatar(
+                        radius: 45,
+                        backgroundImage: NetworkImage(propic),
+                      ),
+                      SizedBox(height: 10,),
                         Text(
                           name,
                           style: TextStyle(
@@ -106,23 +140,28 @@ class _AccountScreenState extends State<AccountScreen> {
                   fontWeight: FontWeight.w500,
                 ),
               ),
+              const SizedBox(height: 20,),
+              
+              isverified? SettingItem(
+                isforward: false,
+                title: "Email Verified",
+                icon: Icons.email,
+                bgColor: Colors.blue.shade100,
+                iconColor: Colors.blue,
+                onTap: () {},
+              ):
+              SettingItem(
+                title: "Verify Email",
+                icon: Icons.email,
+                bgColor: Colors.orange.shade100,
+                iconColor: Colors.orange,
+                isforward: true,
+                onTap: () {
+                  verifyemail();
+                },
+              ),
               // const SizedBox(height: 20),
-              // SettingItem(
-              //   title: "Language",
-              //   icon: Ionicons.earth,
-              //   bgColor: Colors.orange.shade100,
-              //   iconColor: Colors.orange,
-              //   value: "English",
-              //   onTap: () {},
-              // ),
-              // const SizedBox(height: 20),
-              // SettingItem(
-              //   title: "Notifications",
-              //   icon: Ionicons.notifications,
-              //   bgColor: Colors.blue.shade100,
-              //   iconColor: Colors.blue,
-              //   onTap: () {},
-              // ),
+              
               // const SizedBox(height: 20),
               // SettingSwitch(
               //   title: "Dark Mode",
@@ -138,6 +177,7 @@ class _AccountScreenState extends State<AccountScreen> {
               // ),
               const SizedBox(height: 20),
               SettingItem(
+                isforward: true,
                 title: "Help",
                 icon: Ionicons.nuclear,
                 bgColor: Colors.red.shade100,
@@ -171,5 +211,19 @@ class _AccountScreenState extends State<AccountScreen> {
         print(e);
       });
     }
+  }
+  verifyemail() async {
+    try{
+      final user = FirebaseAuth.instance.currentUser!;
+      await user.sendEmailVerification().then((value) {
+        ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Email Verification has send')));
+      });
+    }catch(e){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.toString())),);
+    }
+    
+    
   }
 }

@@ -54,7 +54,6 @@ class _AddAmountState extends State<AddAmount> {
                 height: 30.h,
               ),
               CustomtextField(
-                
                 mycontroller: _amountController,
                 FieldH: 55.h,
                 FieldW: 350.h,
