@@ -253,7 +253,7 @@ class newPost extends StatelessWidget {
                     Text(" / ",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 15.sp)),
-                    Text("\u{20B9}" + reqamount,
+                    Text("\u{20B9}" + reqamount.toString(),
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 15.sp,

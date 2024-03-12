@@ -103,7 +103,7 @@ class DetailsScrn extends StatelessWidget {
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15)),
-                                Text("\u{20B9}" + data["RequestAmount"],
+                                Text("\u{20B9}" + data["RequestAmount"].toString(),
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15,

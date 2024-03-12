@@ -81,7 +81,7 @@ class _ProfileScrnState extends State<ProfileScrn> {
                             child: IconButton(
                               icon: Icon(Icons.edit),
                               color: Colors.black,
-                              onPressed: (){
+                              onPressed: () {
                                 
                               },
                             ),

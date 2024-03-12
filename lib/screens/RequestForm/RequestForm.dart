@@ -30,6 +30,15 @@ class _PostRequestFormState extends State<PostRequestForm> {
     'Others',
   ];
 
+String? _validateUpiAddress(String value) {
+  if (value.isEmpty) {
+    return 'UPI VPA is required.';
+  }
+  if (value.split('@').length != 2) {
+    return 'Invalid UPI VPA';
+  }
+  return null;
+}
   File? image;
 
   Future pickImage() async {
@@ -128,12 +137,11 @@ class _PostRequestFormState extends State<PostRequestForm> {
           backgroundColor: Colors.amberAccent,
           leading: IconButton(
               onPressed: removePostInfo, icon: Icon(Icons.arrow_back)),
-          actions: [
-            IconButton(onPressed: removePostInfo, icon: Icon(Icons.post_add)),
-          ],
         ),
-        body: ListView(
+        body:  
+        ListView(
           children: [
+            Uploading ? LinearProgressIndicator() : Text(""),
             Container(
               height: 280.0,
               width: MediaQuery.of(context).size.width * 8.0,
@@ -231,7 +239,7 @@ class _PostRequestFormState extends State<PostRequestForm> {
     String downloadUrl = await uploadImageToFirebaseStorage(image!);
     String requestAmountText = _ReqAmount.text;
     var requestamount = double.tryParse(requestAmountText);
-double? requestAmount;
+
     UploadToFirebase(
         posttitle: PostTitle.text,
         postcatogory: dropdownvalue,
