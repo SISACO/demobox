@@ -100,7 +100,7 @@ Future signupUser(
   try {
     await FirebaseAuth.instance
         .createUserWithEmailAndPassword(
-            email: emailadd.text, password: pass.text)
+            email: emailadd.text, password: pass.text).then((value) => CircularProgressIndicator())
         .then(
       (value) {
         Navigator.of(ctx).pushAndRemoveUntil(

@@ -25,9 +25,9 @@ class _SigninScrnState extends State<SigninScrn> {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailcontroller.text,
         password: _passwordcontroller.text,
-      );
-
-      
+      ).then((value) => CircularProgressIndicator()).then((value) => Navigator.of(ctx).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (ctx) => HomeScreen()),
+            (route) => false));
     } on FirebaseAuthException catch (e) {
       String errorMessage = 'Invalid credentials, Please Check it';
       if (e.code == 'user-not-found') {
@@ -214,6 +214,7 @@ class _SigninScrnState extends State<SigninScrn> {
                         // checkLogin(ctx, _emailcontroller, _passwordcontroller);
 
                         signInWithEmailAndPassword(context);
+                        
                       }
                       setState(() {});
                     }),
