@@ -9,6 +9,7 @@ class SettingItem extends StatelessWidget {
   final IconData icon;
   final Function() onTap;
   final String? value;
+  final bool isforward;
   const SettingItem({
     super.key,
     required this.title,
@@ -17,6 +18,7 @@ class SettingItem extends StatelessWidget {
     required this.icon,
     required this.onTap,
     this.value,
+    required this.isforward
   });
 
   @override
@@ -56,9 +58,9 @@ class SettingItem extends StatelessWidget {
                 )
               : const SizedBox(),
           const SizedBox(width: 20),
-          ForwardButton(
+          isforward ? ForwardButton(
             onTap: onTap,
-          ),
+          ) : Icon(Icons.verified,size: 40,color: Colors.green,)
         ],
       ),
     );
