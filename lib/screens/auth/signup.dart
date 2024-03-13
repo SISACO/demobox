@@ -469,6 +469,11 @@ class _SigupScrnState extends State<SigupScrn> {
 
                     //AddUser(_namecontroller.text, _usernamecontroller.text)
                     reButton('SignUp', true, () async {
+                      if(image == null){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Select a profile picture')),);
+                      }
+                      else{
                       // checkSignup(context,_namecontroller, _emailcontroller.text, _usernamecontroller,_passwordcontroller.text, _confirmpasswordcontroller.text);
                       if (formkey.currentState!.validate()) {
                         String downloadUrl =
@@ -481,6 +486,7 @@ class _SigupScrnState extends State<SigupScrn> {
                             _passwordcontroller,
                             downloadUrl,
                             dropdownvalue);
+                      }
                       }
                       setState(() {
                         image = null;

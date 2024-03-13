@@ -21,30 +21,30 @@ class AccountScreen extends StatefulWidget {
 class _AccountScreenState extends State<AccountScreen> {
 
   bool isverified = false;
-  Timer?timer;
+ Timer ?timer;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
       isverified = FirebaseAuth.instance.currentUser!.emailVerified;
+  }
+
+  Future<void> reloadUser() async {
     if(!isverified){
-      verifyemail();
+      timer = Timer.periodic(Duration(seconds: 20), (Timer t) => setState(() {
+        isverified = FirebaseAuth.instance.currentUser!.emailVerified;
+      }));
     }
-  
-  }
-  @override
-  void dispose() {
-    timer?.cancel;
-    // TODO: implement dispose
-    super.dispose();
-  }
+
+}
 
   Future checkemail()async {
     await FirebaseAuth.instance.currentUser!.reload();
     setState(() {
       isverified = FirebaseAuth.instance.currentUser!.emailVerified;
     });
+    if(isverified) timer?.cancel();
   }
 
   String email = '';
@@ -52,12 +52,6 @@ class _AccountScreenState extends State<AccountScreen> {
   String uwallet = '';
   String propic = '';
   String gender = '';
-
-  @override
-  void setState(VoidCallback fn) {
-        isverified = FirebaseAuth.instance.currentUser!.emailVerified;
-    super.setState(fn);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -152,6 +146,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 isforward: true,
                 onTap: () {
                   verifyemail();
+                  reloadUser();
                 },
               ),
               // const SizedBox(height: 20),
