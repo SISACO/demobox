@@ -111,14 +111,14 @@ class _AddAmountState extends State<AddAmount> {
 
   
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Amount saved successfully')),
+        SnackBar(content: Text('Amount Added successfully')),
       );
 
       uploadToFirebase(enteredAmount);
     } else {
       // If the transaction IDs don't match, show an error message
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Transaction ID does not match')),
+        SnackBar(content: Text('Payment Declined')),
       );
     }
   }

@@ -48,7 +48,7 @@ class DetailsScrn extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 10, left: 10, right: 10).w,
               child: blckbtn(context, 'Donate Now', () {
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (ctx1) => PaymentInterface()));
+                    MaterialPageRoute(builder: (ctx1) => PaymentInterface(PostId: postid,)));
               }),
             ),
             body: SafeArea(
@@ -109,8 +109,8 @@ class DetailsScrn extends StatelessWidget {
                                         fontSize: 15,
                                         color: Color(0X498F8F8F))),
                                 Padding(
-                                  padding: EdgeInsets.only(left: 200.0),
-                                  child: Text(data["PostProgress"].toString(),
+                                  padding: EdgeInsets.only(left: 205.0),
+                                  child: Text('${data["PostProgress"].toStringAsFixed(0)}%',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15)),

@@ -92,11 +92,14 @@ class HomeScreen extends StatelessWidget {
                                     context,
                                     index,
                                   ) {
+                                  
                                     final DocumentSnapshot document =
                                         snapshot.data!.docs[index];
                                     String postId = document.id;
+                                    final Isactive = document["isactive"];
                                     return Padding(
                                         padding: const EdgeInsets.all(14.0).w,
+                                        
                                         child: newPost(
                                             Postid: postId,
                                             Image: document["Postimage"],
@@ -104,6 +107,9 @@ class HomeScreen extends StatelessWidget {
                                             postprogress:
                                                 document["PostProgress"]
                                                     .toString(),
+                                            postProgress:
+                                                document["PostProgress"]
+                                                    .toStringAsFixed(0),
                                             reqamount:
                                                 document["RequestAmount"],
                                             progressamount:
@@ -178,6 +184,7 @@ class newPost extends StatelessWidget {
   final progressamount;
   final description;
   final Postid;
+  final postProgress;
 
   newPost(
       {super.key,
@@ -187,7 +194,8 @@ class newPost extends StatelessWidget {
       required this.reqamount,
       required this.progressamount,
       required this.description,
-      required this.Postid});
+      required this.Postid,
+      required this.postProgress});
 
   @override
   Widget build(BuildContext context) {
@@ -260,7 +268,7 @@ class newPost extends StatelessWidget {
                             color: Color(0X498F8F8F))),
                     Padding(
                       padding: const EdgeInsets.only(left: 190.0).w,
-                      child: Text(postprogress + "%",
+                      child: Text(postProgress.toString() + "%",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 15.sp)),
                     )
@@ -458,7 +466,7 @@ class _UserWalletState extends State<UserWallet> {
                           ),
                         ),
                         SizedBox(height: 7),
-                        Text("\u{20B9}" + data["wallet"].toString(),
+                        Text("\u{20B9}" + data["wallet"].toStringAsFixed(2),
                             style: TextStyle(
                                 color: Color(0XFF121212),
                                 fontWeight: FontWeight.bold,
@@ -503,4 +511,13 @@ final uid = user!.uid;
 
 Stream<DocumentSnapshot> getUserDataStream(String uid) {
   return FirebaseFirestore.instance.collection('userData').doc(uid).snapshots();
+}
+
+class MyClass {
+  double postprogress;
+  late String integerValue;
+
+  MyClass(this.postprogress) {
+    integerValue = (int.tryParse(postprogress.toString()) ?? 0).toString();
+  }
 }

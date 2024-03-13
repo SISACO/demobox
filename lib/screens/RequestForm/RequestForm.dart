@@ -265,7 +265,7 @@ String? _validateUpiAddress(String value) {
   UploadToFirebase(
       {String? posttitle,
       String? postcatogory,
-      double? requestamount,
+      num? requestamount,
       String? postdescription,
       String? postcommunity,
       String? postupi,
