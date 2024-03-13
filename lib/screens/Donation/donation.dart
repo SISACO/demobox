@@ -109,8 +109,11 @@ class _DonationScrnState extends State<DonationScrn> {
                               actions: <Widget>[
                                 TextButton(
                                   onPressed: () {
+                                    
                                     makeTransaction(context, postid, AmountB!);
+                                    
                                   },
+                                  
                                   child: Text('Procceed'),
                                 ),
                                 TextButton(
@@ -251,7 +254,9 @@ Future<void> makeTransaction(context, String postId, num number) async {
 
       transaction.update(postRef, {'ProgressAmount': postProgress + amount});
 
-      transaction.update(postRef, {'PostProgress': postprogress});
+      num newPostProgress = (postProgress + amount) / requestAmount * 100;
+
+      transaction.update(postRef, {'PostProgress': newPostProgress});
     });
 
     showDialog(
