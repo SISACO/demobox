@@ -141,7 +141,7 @@ String? _validateUpiAddress(String value) {
         body:  
         ListView(
           children: [
-            Uploading ? LinearProgressIndicator() : Text(""),
+            Uploading ? LinearProgressIndicator(color: Colors.amberAccent,) : Text(""),
             Container(
               height: 280.0,
               width: MediaQuery.of(context).size.width * 8.0,
