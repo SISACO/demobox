@@ -1,14 +1,13 @@
 import 'package:Donobox/core/app_export.dart';
 import 'package:Donobox/model/model.dart';
+import 'package:Donobox/screens/Donation/donation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomButtonTwo extends StatelessWidget {
   final String? Textt;
-  CustomButtonTwo({
-    super.key,
-    required this.Textt,
-  });
+  final Postid;
+  CustomButtonTwo({super.key, required this.Textt, this.Postid});
 
   @override
   Widget build(
@@ -40,7 +39,9 @@ class newElevatedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        
+      },
       child: Text(
         Amodel.Amount,
         style: TextStyle(

@@ -7,7 +7,8 @@ import 'package:Donobox/widgets/menubar/MenuBar.dart';
 import 'package:flutter/material.dart';
 
 class PaymentInterface extends StatelessWidget {
-  const PaymentInterface({super.key});
+  String PostId;
+   PaymentInterface({super.key, required this.PostId});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class PaymentInterface extends StatelessWidget {
         child: Scaffold(
           appBar: PayBar(context),
           body: TabBarView(
-            children: [DonationScrn(), AddAmount(showAppBar: false)],
+            children: [DonationScrn(PostId: PostId,), AddAmount(showAppBar: false)],
           ),
         ),
       ),

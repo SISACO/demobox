@@ -87,6 +87,8 @@ class CatogoryFilterScreen extends StatelessWidget {
                                             postprogress:
                                                 document["PostProgress"]
                                                     .toString(),
+                                            postProgress:document["PostProgress"].toStringAsFixed(0)
+                                                    ,
                                             reqamount:
                                                 document["RequestAmount"],
                                             progressamount:
