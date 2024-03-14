@@ -4,6 +4,7 @@ import 'package:Donobox/core/colors/colors.dart';
 import 'package:Donobox/data/modalsData.dart';
 import 'package:Donobox/model/model.dart';
 import 'package:Donobox/reuseable/reuseable.dart';
+import 'package:Donobox/screens/home/home.dart';
 import 'package:Donobox/widgets/cstmnumfield.dart';
 import 'package:Donobox/widgets/custom_elevated_button.dart';
 import 'package:Donobox/widgets/customtextField.dart';
@@ -108,11 +109,12 @@ class _DonationScrnState extends State<DonationScrn> {
                               actions: <Widget>[
                                 TextButton(
                                   onPressed: () {
-                                    
                                     makeTransaction(context, postid, AmountB!);
-                                    
+                                    Future.delayed(Duration(milliseconds: 500),
+                                        () {
+                                      Navigator.of(context).pop();
+                                    });
                                   },
-                                  
                                   child: Text('Procceed'),
                                 ),
                                 TextButton(
@@ -152,7 +154,6 @@ class _DonationScrnState extends State<DonationScrn> {
   }
 }
 
-
 Future<void> makeTransaction(context, String postId, num number) async {
   num amount = number; // Keep amount as num
   final user = FirebaseAuth.instance.currentUser;
@@ -178,13 +179,19 @@ Future<void> makeTransaction(context, String postId, num number) async {
 
     // Check if user has sufficient funds
     if (userWallet < amount) {
+       Navigator.of(context).pop();
+      Future.delayed(Duration(milliseconds: 800),
+      
       throw showDialog(
         context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
+          
+          return 
+          AlertDialog(
               title: Text("Insufficient funds"),
               content: Text("Insufficient Balance in Your Wallet"),
               actions: <Widget>[
+                
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -202,19 +209,19 @@ Future<void> makeTransaction(context, String postId, num number) async {
                 ),
               ]);
         },
-      );
+      ));
     }
 
     if (requestAmount <= postProgress) {
       await postRef.update({'isactive': false});
-        ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Required amount for the post is already reached")));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Required amount for the post is already reached")));
       return;
     }
 
     if (amount > (requestAmount - postProgress)) {
-      throw ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Amount exceeds required amount for the post")));
+      throw ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Amount exceeds required amount for the post")));
     }
     num postprogress = (postProgress / requestAmount) * 100;
 
@@ -228,26 +235,10 @@ Future<void> makeTransaction(context, String postId, num number) async {
       transaction.update(postRef, {'PostProgress': newPostProgress});
     });
 
-    showDialog(
-      context: context,
-      builder: (BuildContext ctx) {
-        return AlertDialog(
-            title: Text("Transaction Successfull"),
-            content: Text("Successfully Transffered the Amount, thanks"),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('Go to home'),
-              ),
-            ]);
-      },
-    );
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Successfully Transffered the Amount, thanks")));
   } catch (e) {
-    ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Transaction Failed,Try Again")));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text("Transaction Failed,Try Again")));
   }
-  
 }
-
