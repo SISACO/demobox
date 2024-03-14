@@ -21,7 +21,7 @@ class _AddAmountState extends State<AddAmount> {
   TextEditingController _amountController = TextEditingController();
 
   double totalAmount = 0.0;
-  String assignedTransactionId = '12345678';
+  String assignedTransactionId = 'T1234516789101112131415';
 
   @override
   Widget build(
