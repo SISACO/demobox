@@ -178,7 +178,7 @@ class _AccountScreenState extends State<AccountScreen> {
               const SizedBox(height: 20),
               SettingItem(
                 isforward: true,
-                title: "Help",
+                title: "Help & Support",
                 icon: Ionicons.nuclear,
                 bgColor: Colors.red.shade100,
                 iconColor: Colors.red,
@@ -209,6 +209,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     TextButton.icon(
                     onPressed: () {
                       Navigator.of(ctx).pop();
+                      
                     },
                     icon: const Icon(Icons.cancel_presentation),
                     label: const Text('No'))
