@@ -415,7 +415,7 @@ class _UserWalletState extends State<UserWallet> {
             stream: getUserDataStream(uid),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return LinearProgressIndicator();
+                return LinearProgressIndicator(color: Colors.amberAccent,);
               }
               if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
