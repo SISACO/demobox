@@ -110,7 +110,7 @@ class _DonationScrnState extends State<DonationScrn> {
                                 TextButton(
                                   onPressed: () {
                                     makeTransaction(context, postid, AmountB!);
-                                    Future.delayed(Duration(milliseconds: 500),
+                                    Future.delayed(Duration(milliseconds: 400),
                                         () {
                                       Navigator.of(context).pop();
                                     });
@@ -179,37 +179,34 @@ Future<void> makeTransaction(context, String postId, num number) async {
 
     // Check if user has sufficient funds
     if (userWallet < amount) {
-       Navigator.of(context).pop();
-      Future.delayed(Duration(milliseconds: 800),
-      
-      throw showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          
-          return 
-          AlertDialog(
-              title: Text("Insufficient funds"),
-              content: Text("Insufficient Balance in Your Wallet"),
-              actions: <Widget>[
-                
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (ctx) => AddAmount(
-                              showAppBar: true,
-                            )));
-                  },
-                  child: Text('Add Amount'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Close'),
-                ),
-              ]);
-        },
-      ));
+      Navigator.of(context).pop();
+      Future.delayed(
+          Duration(milliseconds: 800),
+          throw showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                  title: Text("Insufficient funds"),
+                  content: Text("Insufficient Balance in Your Wallet"),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (ctx) => AddAmount(
+                                  showAppBar: true,
+                                )));
+                      },
+                      child: Text('Add Amount'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Close'),
+                    ),
+                  ]);
+            },
+          ));
     }
 
     if (requestAmount <= postProgress) {
@@ -220,8 +217,9 @@ Future<void> makeTransaction(context, String postId, num number) async {
     }
 
     if (amount > (requestAmount - postProgress)) {
+      
       throw ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Amount exceeds required amount for the post")));
+          content: Text("Amount exceeds required amount for the post, Amount should be less than ${requestAmount - postProgress}")));
     }
     num postprogress = (postProgress / requestAmount) * 100;
 
@@ -235,8 +233,8 @@ Future<void> makeTransaction(context, String postId, num number) async {
       transaction.update(postRef, {'PostProgress': newPostProgress});
     });
 
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Successfully Transffered the Amount, thanks")));
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Successfully Transffered the Amount, thanks")));
   } catch (e) {
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text("Transaction Failed,Try Again")));

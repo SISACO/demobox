@@ -46,9 +46,15 @@ class DetailsScrn extends StatelessWidget {
             appBar: MyAppBar(context, 'More Details'),
             bottomNavigationBar: Container(
               margin: EdgeInsets.only(bottom: 10, left: 10, right: 10).w,
-              child: blckbtn(context, 'Donate Now', () {
+              
+              child:  blckbtn(context, 'Donate Now', () {
+                if (data["RequestAmount"] == data["ProgressAmount"]) {
+                  showSnackbar(context, "Sorry, Funding for this post Compleated");
+                }else{
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (ctx1) => PaymentInterface(PostId: postid,)));
+                }
+                
               }),
             ),
             body: SafeArea(
@@ -70,11 +76,13 @@ class DetailsScrn extends StatelessWidget {
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(8.0).w,
-                            child: Text(data["PostTitle"],
+                            
+                            child:  Text(data["PostTitle"],
                                 style: TextStyle(fontSize: 16)),
                           )
                         ],
                       ),
+
                       SizedBox(height: 5),
                       Column(
                         children: [
