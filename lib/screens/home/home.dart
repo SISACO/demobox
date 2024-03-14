@@ -97,6 +97,7 @@ class HomeScreen extends StatelessWidget {
                                         snapshot.data!.docs[index];
                                     String postId = document.id;
                                     final Isactive = document["isactive"];
+                                     if (Isactive == true) {
                                     return Padding(
                                         padding: const EdgeInsets.all(14.0).w,
                                         
@@ -117,7 +118,10 @@ class HomeScreen extends StatelessWidget {
                                                     .toString(),
                                             description:
                                                 document["PostDescription"]));
-                                  },
+                              } else {
+            
+            return Container();
+          }},
                                 );
                               }
                             }),
@@ -411,7 +415,7 @@ class _UserWalletState extends State<UserWallet> {
             stream: getUserDataStream(uid),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return LinearProgressIndicator();
+                return LinearProgressIndicator(color: Colors.amberAccent,);
               }
               if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');

@@ -1,0 +1,14 @@
+flutter_native_splash:
+  color: "#FFDC73"
+  color_dark: "#FFDC73"
+  image: assets\logo\dono-logo.png
+  image_dark: assets\logo\dono-logo.png
+
+  android_12:
+    color: "#FFDC73"
+    color_dark: "#FFDC73"
+    image: assets\logo\dono-logo.png
+    image_dark: assets\logo\dono-logo.png
+
+
+  web: false

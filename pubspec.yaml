@@ -51,7 +51,6 @@ dependencies:
   firebase_storage: ^11.6.0
   ionicons: ^0.2.2
   google_fonts: 6.1.0
-
   
 
 dev_dependencies:
