@@ -52,7 +52,7 @@ class CatogoryFilterScreen extends StatelessWidget {
       return Text('Error: ${snapshot.error}');
     }
     if (snapshot.data == null || snapshot.data!.docs.isEmpty) {
-      return Text('No data available');
+      return Text('No Posts Found');
     }
                               if (!snapshot.hasData) {
                                 return CircularProgressIndicator();
@@ -78,8 +78,11 @@ class CatogoryFilterScreen extends StatelessWidget {
                                     final DocumentSnapshot document =
                                         snapshot.data!.docs[index];
                                     String postId = document.id;
+                                    final Isactive = document["isactive"];
+                                     if (Isactive == true) {
                                     return Padding(
                                         padding: const EdgeInsets.all(14.0).w,
+                                        
                                         child: newPost(
                                             Postid: postId,
                                             Image: document["Postimage"],
@@ -87,8 +90,9 @@ class CatogoryFilterScreen extends StatelessWidget {
                                             postprogress:
                                                 document["PostProgress"]
                                                     .toString(),
-                                            postProgress:document["PostProgress"].toStringAsFixed(0)
-                                                    ,
+                                            postProgress:
+                                                document["PostProgress"]
+                                                    .toStringAsFixed(0),
                                             reqamount:
                                                 document["RequestAmount"],
                                             progressamount:
@@ -96,6 +100,19 @@ class CatogoryFilterScreen extends StatelessWidget {
                                                     .toString(),
                                             description:
                                                 document["PostDescription"]));
+                              } else {
+            
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child: Text("No Posts Found "),
+                  ),
+                ],
+              ),
+            );
+          }
                                   },
                                 );
                               }

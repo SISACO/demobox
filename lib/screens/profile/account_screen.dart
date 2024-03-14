@@ -186,8 +186,8 @@ class _AccountScreenState extends State<AccountScreen> {
                 isforward: true,
                 title: "Delete Account",
                 icon: Icons.delete_forever_outlined,
-                bgColor: const Color.fromARGB(255, 255, 14, 38),
-                iconColor: const Color.fromARGB(255, 0, 0, 0),
+                bgColor: Color.fromARGB(255, 246, 58, 77),
+                iconColor: Color.fromARGB(255, 255, 189, 189),
                 onTap: () {
                   showDialog(
         context: context,

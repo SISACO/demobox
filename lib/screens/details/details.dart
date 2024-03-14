@@ -60,8 +60,9 @@ class DetailsScrn extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0).w,
                         child: ClipRRect(
+                          
                           borderRadius: BorderRadius.circular(8.0).r,
-                          child: Image.network(imageUrl),
+                          child: Image.network(imageUrl,fit: BoxFit.fill,),
                         ),
                       ),
                       SizedBox(height: 5),

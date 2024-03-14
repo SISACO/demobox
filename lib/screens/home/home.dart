@@ -97,6 +97,7 @@ class HomeScreen extends StatelessWidget {
                                         snapshot.data!.docs[index];
                                     String postId = document.id;
                                     final Isactive = document["isactive"];
+                                     if (Isactive == true) {
                                     return Padding(
                                         padding: const EdgeInsets.all(14.0).w,
                                         
@@ -117,7 +118,10 @@ class HomeScreen extends StatelessWidget {
                                                     .toString(),
                                             description:
                                                 document["PostDescription"]));
-                                  },
+                              } else {
+            
+            return Container();
+          }},
                                 );
                               }
                             }),
