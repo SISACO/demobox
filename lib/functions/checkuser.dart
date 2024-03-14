@@ -1,4 +1,5 @@
 
+import 'package:Donobox/screens/auth/verifyemail.dart';
 import 'package:Donobox/screens/home/home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -100,12 +101,12 @@ Future signupUser(
   try {
     await FirebaseAuth.instance
         .createUserWithEmailAndPassword(
-            email: emailadd.text, password: pass.text).then((value) => CircularProgressIndicator())
+            email: emailadd.text, password: pass.text)
         .then(
       (value) {
-        Navigator.of(ctx).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (ctx) => HomeScreen()),
-            (route) => false);
+              Navigator.of(ctx).push(
+            MaterialPageRoute(builder: (ctx) => HomeScreen()),);
+            
       },
     );
     addUserdetail(name.text, emailadd.text, img , 0,gender);

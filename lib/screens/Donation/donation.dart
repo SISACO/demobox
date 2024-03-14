@@ -1,5 +1,4 @@
 import 'package:Donobox/screens/AmountAdd/AmountAdd.dart';
-import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:Donobox/core/app_export.dart';
 import 'package:Donobox/core/colors/colors.dart';
 import 'package:Donobox/data/modalsData.dart';

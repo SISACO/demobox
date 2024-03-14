@@ -1,8 +1,11 @@
 
 import 'dart:async';
+import 'package:Donobox/functions/auth_gate.dart';
+import 'package:Donobox/screens/auth/loading.dart';
 import 'package:Donobox/screens/auth/sign.dart';
 import 'package:Donobox/screens/profile/edit_screen.dart';
 import 'package:Donobox/screens/profile/profilewidgets/forward_button.dart';
+import 'package:Donobox/screens/profile/profilewidgets/help.dart';
 import 'package:Donobox/widgets/appbar/AppBar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -138,25 +141,25 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
               const SizedBox(height: 20,),
               
-              isverified? SettingItem(
-                isforward: false,
-                title: "Email Verified",
-                icon: Icons.email,
-                bgColor: Colors.blue.shade100,
-                iconColor: Colors.blue,
-                onTap: () {},
-              ):
-              SettingItem(
-                title: "Verify Email",
-                icon: Icons.email,
-                bgColor: Colors.orange.shade100,
-                iconColor: Colors.orange,
-                isforward: true,
-                onTap: () {
-                  verifyemail();
-                  // reloadUser();
-                },
-              ),
+              // isverified? SettingItem(
+              //   isforward: false,
+              //   title: "Email Verified",
+              //   icon: Icons.email,
+              //   bgColor: Colors.blue.shade100,
+              //   iconColor: Colors.blue,
+              //   onTap: () {},
+              // ):
+              // SettingItem(
+              //   title: "Change Password",
+              //   icon: Icons.lock_clock,
+              //   bgColor: Colors.orange.shade100,
+              //   iconColor: Colors.orange,
+              //   isforward: true,
+              //   onTap: () {
+
+              //     // reloadUser();
+              //   },
+              // ),
               // const SizedBox(height: 20),
               
               // const SizedBox(height: 20),
@@ -179,7 +182,9 @@ class _AccountScreenState extends State<AccountScreen> {
                 icon: Ionicons.nuclear,
                 bgColor: Colors.red.shade100,
                 iconColor: Colors.red,
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>helpScrn()));
+                },
               ),
               const SizedBox(height: 20),
               SettingItem(
@@ -196,9 +201,8 @@ class _AccountScreenState extends State<AccountScreen> {
               actions: [
                 TextButton.icon(
                     onPressed: () {
+                      Navigator.of(ctx).push(MaterialPageRoute(builder:(ctx)=> loadingScrn()));
                       deleteAccount();
-                      Navigator.of(ctx).pop();
-                      CircularProgressIndicator();
                     },
                     icon: const Icon(Icons.delete,color: Colors.red,),
                     label: const Text('Yes',style: TextStyle(color: Colors.redAccent),)),
@@ -244,32 +248,27 @@ class _AccountScreenState extends State<AccountScreen> {
   //     });
   //   }
   // }
-  verifyemail() async {
-    try{
-      final user = FirebaseAuth.instance.currentUser!;
-      await user.sendEmailVerification().then((value) {
-        ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Email Verification has send')));
-      });
-    }catch(e){
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.toString())),);
-    }
+  // verifyemail() async {
+  //   try{
+  //     final user = FirebaseAuth.instance.currentUser!;
+  //     await user.sendEmailVerification().then((value) {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text('Email Verification has send')));
+  //     });
+  //   }catch(e){
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text(e.toString())),);
+  //   }
     
     
-  }
+  // }
   deleteAccount(){
-
     FirebaseFirestore.instance.collection("userData").doc(uid).delete().then(
-      (doc) => user?.delete().then((value) {
-        CircularProgressIndicator(color: Colors.red,);
-      }).then((value) {
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (ctx) => SigninScrn()), (route) => false);
-      }).onError((error, stackTrace){
+      (doc) => user?.delete()).whenComplete(() => ExitApp(context)).onError((error, stackTrace){
         ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(error.toString())));
-      }));
+        return;
+      });
   }
 }
 User? user = FirebaseAuth.instance.currentUser;
