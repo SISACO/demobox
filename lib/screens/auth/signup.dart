@@ -4,6 +4,8 @@ import 'package:Donobox/functions/checkuser.dart';
 import 'package:Donobox/functions/validation.dart';
 import 'package:Donobox/reuseable/reuseable.dart';
 import 'package:Donobox/screens/auth/loading.dart';
+
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:Donobox/widgets/appbar/AppBar.dart';
@@ -34,7 +36,6 @@ class _SigupScrnState extends State<SigupScrn> {
   String dropdownvalue = 'Others';
   bool hidetext = true;
   File? image;
-  bool agreeTerms = false;
   bool isChanged = false;
   String imgUrl = '';
   bool isLoading = true;
@@ -449,25 +450,6 @@ class _SigupScrnState extends State<SigupScrn> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      children: [
-                        Material(
-                          child: Checkbox(
-                            value: agreeTerms,
-                            onChanged: (value) {
-                              setState(() {
-                                agreeTerms = value ?? false;
-                              });
-                            },
-                          ),
-                        ),
-                        Flexible(
-                          child: const Text(
-                            'I have read and accept terms and conditions',
-                          ),
-                        )
-                      ],
-                    ),
 
                     //AddUser(_namecontroller.text, _usernamecontroller.text)
                     reButton('SignUp', true, () async {
@@ -480,11 +462,12 @@ class _SigupScrnState extends State<SigupScrn> {
                         );
                       }
                       else {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (ctx) => loadingScrn()));  
-                               
+    
                           String downloadUrl =
                               await uploadImageToFirebaseStorage(image!);
+
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (ctx) => loadingScrn()));
                               
                           signupUser(
                               context,

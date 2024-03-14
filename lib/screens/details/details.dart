@@ -1,4 +1,4 @@
-import 'package:Donobox/model/model.dart';
+
 import 'package:Donobox/reuseable/reuseable.dart';
 import 'package:Donobox/screens/transaction/payment.dart';
 import 'package:Donobox/widgets/appbar/AppBar.dart';

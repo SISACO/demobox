@@ -20,6 +20,7 @@ class loadingScrn extends StatelessWidget {
     ),
         ],
       ),
+      
     );
   }
 }

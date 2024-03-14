@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:dropdown_search/dropdown_search.dart';
+
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as Path;

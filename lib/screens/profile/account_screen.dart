@@ -2,9 +2,7 @@
 import 'dart:async';
 import 'package:Donobox/functions/auth_gate.dart';
 import 'package:Donobox/screens/auth/loading.dart';
-import 'package:Donobox/screens/auth/sign.dart';
-import 'package:Donobox/screens/profile/edit_screen.dart';
-import 'package:Donobox/screens/profile/profilewidgets/forward_button.dart';
+
 import 'package:Donobox/screens/profile/profilewidgets/help.dart';
 import 'package:Donobox/widgets/appbar/AppBar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 import 'profilewidgets/setting_item.dart';
-import 'profilewidgets/setting_switch.dart';
+
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -201,7 +199,8 @@ class _AccountScreenState extends State<AccountScreen> {
               actions: [
                 TextButton.icon(
                     onPressed: () {
-                      Navigator.of(ctx).push(MaterialPageRoute(builder:(ctx)=> loadingScrn()));
+                      Navigator.of(context).push(MaterialPageRoute(
+                              builder: (ctx) => loadingScrn()));
                       deleteAccount();
                     },
                     icon: const Icon(Icons.delete,color: Colors.red,),
@@ -222,7 +221,7 @@ class _AccountScreenState extends State<AccountScreen> {
         );
             }
             else{
-              return Text('Error');
+              return Center(child: Text('There is an Error,Just Restart the App',style: TextStyle(color: Colors.redAccent,fontSize: 18),));
             }
             
           }

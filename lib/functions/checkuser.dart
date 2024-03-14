@@ -1,11 +1,9 @@
 
-import 'package:Donobox/screens/auth/verifyemail.dart';
+import 'package:Donobox/screens/auth/signup.dart';
 import 'package:Donobox/screens/home/home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
 
 // void checkLogin(BuildContext ctx, TextEditingController emailid, TextEditingController pass) {
 //   FirebaseAuth.instance.signInWithEmailAndPassword(email: emailid.text, password: pass.text).then((value) {
@@ -70,24 +68,22 @@ import 'package:flutter/material.dart';
 // }
 
 final FirebaseAuth auth = FirebaseAuth.instance;
-Future addUserdetail(String _name, String _emailadd,
-    String _propic, double _userWallet,String _gender) async {
-      var firebaseuser=await FirebaseAuth.instance.currentUser;
-      // CollectionReference users = FirebaseFirestore.instance.collection('userData');
-      // FirebaseAuth auth =  FirebaseAuth.instance;
-      // String uid = auth.currentUser!.uid.toString();
-      FirebaseFirestore.instance.collection('userData')
-      .doc(firebaseuser!.uid).set({
-  // final user = UserModel(id: '', myname: _name, myemail:_emailadd, myusername: _username, myprofilpic: _propic, mydonations: 0,);
+Future addUserdetail(String _name, String _emailadd, String _propic,
+    double _userWallet, String _gender) async {
+  var firebaseuser = await FirebaseAuth.instance.currentUser;
+  // CollectionReference users = FirebaseFirestore.instance.collection('userData');
+  // FirebaseAuth auth =  FirebaseAuth.instance;
+  // String uid = auth.currentUser!.uid.toString();
+  FirebaseFirestore.instance.collection('userData').doc(firebaseuser!.uid).set({
+    // final user = UserModel(id: '', myname: _name, myemail:_emailadd, myusername: _username, myprofilpic: _propic, mydonations: 0,);
     // await FirebaseFirestore.instance.collection('userData').add({
-      'name': _name,
-      'email': _emailadd,
-      'gender':_gender,
-      'profilepic': _propic,
-      'wallet': _userWallet,
-    });
-  
-  }
+    'name': _name,
+    'email': _emailadd,
+    'gender': _gender,
+    'profilepic': _propic,
+    'wallet': _userWallet,
+  });
+}
 
 Future signupUser(
     BuildContext ctx,
@@ -104,10 +100,12 @@ Future signupUser(
             email: emailadd.text, password: pass.text)
         .then(
       (value) {
-              Navigator.of(ctx).pushReplacement(MaterialPageRoute(builder: (ctx) => HomeScreen())); 
-      },
+    addUserdetail(name.text, emailadd.text, img, 0, gender).then(
+      (value) =>
+        Navigator.of(ctx).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (ctx) => HomeScreen()),(route) => false));
+      }
     );
-    addUserdetail(name.text, emailadd.text, img , 0,gender);
   } on FirebaseAuthException catch (error) {
     errorMsg = error.message!;
     // ignore: use_build_context_synchronously
@@ -118,7 +116,7 @@ Future signupUser(
               actions: [
                 TextButton.icon(
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Navigator.of(ctx).pushReplacement(MaterialPageRoute(builder: (ctx) => SigupScrn()),);
                     },
                     icon: const Icon(Icons.refresh_rounded),
                     label: const Text('Try agian'))
