@@ -1,6 +1,7 @@
 import 'package:Donobox/functions/checkuser.dart';
 import 'package:Donobox/functions/validation.dart';
 import 'package:Donobox/reuseable/reuseable.dart';
+import 'package:Donobox/screens/auth/loading.dart';
 import 'package:Donobox/screens/auth/resetpass.dart';
 import 'package:Donobox/screens/auth/signup.dart';
 import 'package:Donobox/screens/home/home.dart';
@@ -20,28 +21,6 @@ class _SigninScrnState extends State<SigninScrn> {
 
   final TextEditingController _passwordcontroller = TextEditingController();
 
-  Future<void> signInWithEmailAndPassword(BuildContext context) async {
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailcontroller.text,
-        password: _passwordcontroller.text,
-      ).then((value) => CircularProgressIndicator()).then((value) => Navigator.of(ctx).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (ctx) => HomeScreen()),
-            (route) => false));
-    } on FirebaseAuthException catch (e) {
-      String errorMessage = 'Invalid credentials, Please Check it';
-      if (e.code == 'user-not-found') {
-        errorMessage = 'No user found for that email.';
-      } else if (e.code == 'wrong-password') {
-        errorMessage = 'Wrong password provided for that user.';
-      }
-      
-      
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(errorMessage)),
-      );
-    }
-  }
 
   bool hidetext = true;
   String errorMsg = '';
@@ -208,12 +187,14 @@ class _SigninScrnState extends State<SigninScrn> {
                     const SizedBox(
                       height: 20,
                     ),
-                    reButton('Login', true, () async {
+                    reButton('Login', true, (){
                       if (formkey.currentState!.validate()) {
+                        // Navigator.of(context).push(MaterialPageRoute(
+                        //       builder: (ctx) => loadingScrn()));
                         // signinUser(ctx,_emailcontroller, _passwordcontroller);
                         // checkLogin(ctx, _emailcontroller, _passwordcontroller);
 
-                        signInWithEmailAndPassword(context);
+                        signInWithEmailAndPassword(context,_emailcontroller.text,_passwordcontroller.text);
                         
                       }
                       setState(() {});
@@ -249,4 +230,27 @@ class _SigninScrnState extends State<SigninScrn> {
       ),
     );
   }
+  
 }
+signInWithEmailAndPassword(BuildContext ctx , String email,String pass) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: pass
+      ).then((value) {
+        Navigator.of(ctx).pushReplacement(MaterialPageRoute(builder: (ctx) => HomeScreen()));
+      });
+    } on FirebaseAuthException catch (e) {
+      String errorMessage = 'Invalid credentials, Please Check it';
+      if (e.code == 'user-not-found') {
+        errorMessage = 'No user found for that email.';
+      } else if (e.code == 'wrong-password') {
+        errorMessage = 'Wrong password provided for that user.';
+      }
+      
+      
+      ScaffoldMessenger.of(ctx).showSnackBar(
+        SnackBar(content: Text(errorMessage)),
+      );
+    }
+  }

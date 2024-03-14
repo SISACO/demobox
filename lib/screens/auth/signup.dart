@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:Donobox/functions/checkuser.dart';
 import 'package:Donobox/functions/validation.dart';
 import 'package:Donobox/reuseable/reuseable.dart';
+import 'package:Donobox/screens/auth/loading.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:Donobox/widgets/appbar/AppBar.dart';
@@ -36,6 +37,7 @@ class _SigupScrnState extends State<SigupScrn> {
   bool agreeTerms = false;
   bool isChanged = false;
   String imgUrl = '';
+  bool isLoading = true;
   final formkey = GlobalKey<FormState>();
 
   Future<String> uploadImageToFirebaseStorage(File imageFile) async {
@@ -469,25 +471,30 @@ class _SigupScrnState extends State<SigupScrn> {
 
                     //AddUser(_namecontroller.text, _usernamecontroller.text)
                     reButton('SignUp', true, () async {
-                      if(image == null){
+                       
+                        // checkSignup(context,_namecontroller, _emailcontroller.text, _usernamecontroller,_passwordcontroller.text, _confirmpasswordcontroller.text);
+                        if (formkey.currentState!.validate()) {
+                          if (image == null) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Select a profile picture')),);
+                          SnackBar(content: Text('Select a profile picture')),
+                        );
                       }
-                      else{
-                      // checkSignup(context,_namecontroller, _emailcontroller.text, _usernamecontroller,_passwordcontroller.text, _confirmpasswordcontroller.text);
-                      if (formkey.currentState!.validate()) {
-                        String downloadUrl =
-                            await uploadImageToFirebaseStorage(image!);
-                        signupUser(
-                            context,
-                            _namecontroller,
-                            _emailcontroller,
-                            _usernamecontroller,
-                            _passwordcontroller,
-                            downloadUrl,
-                            dropdownvalue);
-                            
-                      }
+                      else {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (ctx) => loadingScrn()));  
+                               
+                          String downloadUrl =
+                              await uploadImageToFirebaseStorage(image!);
+                              
+                          signupUser(
+                              context,
+                              _namecontroller,
+                              _emailcontroller,
+                              _usernamecontroller,
+                              _passwordcontroller,
+                              downloadUrl,
+                              dropdownvalue);
+                        }
                       }
                       setState(() {
                         image = null;
@@ -500,6 +507,25 @@ class _SigupScrnState extends State<SigupScrn> {
           ],
         ),
       ),
+    );
+  }
+
+  showLoaderDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: Row(
+        children: [
+          CircularProgressIndicator(),
+          Container(
+              margin: EdgeInsets.only(left: 7), child: Text("Loading...")),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 
