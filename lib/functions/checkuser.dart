@@ -104,9 +104,7 @@ Future signupUser(
             email: emailadd.text, password: pass.text)
         .then(
       (value) {
-              Navigator.of(ctx).push(
-            MaterialPageRoute(builder: (ctx) => HomeScreen()),);
-            
+              Navigator.of(ctx).pushReplacement(MaterialPageRoute(builder: (ctx) => HomeScreen())); 
       },
     );
     addUserdetail(name.text, emailadd.text, img , 0,gender);

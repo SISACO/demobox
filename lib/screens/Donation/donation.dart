@@ -207,44 +207,14 @@ Future<void> makeTransaction(context, String postId, num number) async {
 
     if (requestAmount <= postProgress) {
       await postRef.update({'isactive': false});
-
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-              title: Text("Reached Maximum"),
-              content: Text(
-                  "Required amount for the post is already reached"),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Close'),
-                ),
-              ]);
-        },
-      );
+        ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Required amount for the post is already reached")));
       return;
     }
 
     if (amount > (requestAmount - postProgress)) {
-      throw showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-              title: Text("Amount Exceeded"),
-              content: Text("Amount exceeds required amount for the post"),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Close'),
-                ),
-              ]);
-        },
-      );
+      throw ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Amount exceeds required amount for the post")));
     }
     num postprogress = (postProgress / requestAmount) * 100;
 
@@ -260,7 +230,7 @@ Future<void> makeTransaction(context, String postId, num number) async {
 
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (BuildContext ctx) {
         return AlertDialog(
             title: Text("Transaction Successfull"),
             content: Text("Successfully Transffered the Amount, thanks"),
@@ -269,27 +239,15 @@ Future<void> makeTransaction(context, String postId, num number) async {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('Close'),
+                child: Text('Go to home'),
               ),
             ]);
       },
     );
   } catch (e) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-            title: Text("Transaction failed"),
-            content: Text("Transaction Failed,Try Again"),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('Try Again'),
-              ),
-            ]);
-      },
-    );
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Transaction Failed,Try Again")));
   }
+  
 }
+
