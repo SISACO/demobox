@@ -24,7 +24,6 @@ class SigupScrn extends StatefulWidget {
 class _SigupScrnState extends State<SigupScrn> {
   final TextEditingController _namecontroller = TextEditingController();
   final TextEditingController _emailcontroller = TextEditingController();
-  final TextEditingController _usernamecontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
   final TextEditingController _confirmpasswordcontroller =
       TextEditingController();
@@ -38,6 +37,7 @@ class _SigupScrnState extends State<SigupScrn> {
   File? image;
   bool isChanged = false;
   String imgUrl = '';
+  bool Uploading = false;
   bool isLoading = true;
   final formkey = GlobalKey<FormState>();
 
@@ -54,6 +54,19 @@ class _SigupScrnState extends State<SigupScrn> {
       print('Error uploading image to Firebase Storage: $e');
       return Future.error('Failed to upload image');
     }
+  }
+
+  void removeUserInfo() {
+    _namecontroller.clear();
+    dropdownvalue = "Others";
+    _emailcontroller.clear();
+    _passwordcontroller.clear();
+    _confirmpasswordcontroller.clear();
+
+    setState(() {
+      image = null;
+      Uploading = false;
+    });
   }
 
   @override
@@ -462,26 +475,27 @@ class _SigupScrnState extends State<SigupScrn> {
                         );
                       }
                       else {
-    
+                        setState(() {
+                          Uploading = true;
+                        });
+
                           String downloadUrl =
                               await uploadImageToFirebaseStorage(image!);
+                              
+                            Uploading ? LinearProgressIndicator(color: Colors.amberAccent,) : Text("");
 
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (ctx) => loadingScrn()));
-                              
+
                           signupUser(
                               context,
                               _namecontroller,
                               _emailcontroller,
-                              _usernamecontroller,
                               _passwordcontroller,
                               downloadUrl,
-                              dropdownvalue);
+                              dropdownvalue).whenComplete(() => removeUserInfo());
                         }
                       }
-                      setState(() {
-                        image = null;
-                      });
                     }),
                   ],
                 ),

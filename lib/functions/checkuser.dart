@@ -89,7 +89,6 @@ Future signupUser(
     BuildContext ctx,
     TextEditingController name,
     TextEditingController emailadd,
-    TextEditingController usern,
     TextEditingController pass,
     String img,
     String gender) async {

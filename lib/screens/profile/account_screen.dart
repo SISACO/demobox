@@ -221,7 +221,14 @@ class _AccountScreenState extends State<AccountScreen> {
         );
             }
             else{
-              return Center(child: Text('There is an Error,Just Restart the App',style: TextStyle(color: Colors.redAccent,fontSize: 18),));
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const[
+                    Text("Error Occured",style: TextStyle(color: Colors.redAccent,fontSize: 10),),
+                    Text("Try restarting the app",style: TextStyle(color: Colors.redAccent,fontSize: 10),),
+                  ],
+                );
             }
             
           }
