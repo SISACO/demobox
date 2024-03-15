@@ -1,10 +1,7 @@
 
 import 'dart:async';
 import 'package:Donobox/functions/auth_gate.dart';
-import 'package:Donobox/screens/auth/loading.dart';
-import 'package:Donobox/screens/auth/sign.dart';
-import 'package:Donobox/screens/profile/edit_screen.dart';
-import 'package:Donobox/screens/profile/profilewidgets/forward_button.dart';
+
 import 'package:Donobox/screens/profile/profilewidgets/help.dart';
 import 'package:Donobox/widgets/appbar/AppBar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 import 'profilewidgets/setting_item.dart';
-import 'profilewidgets/setting_switch.dart';
+
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -42,19 +39,14 @@ class _AccountScreenState extends State<AccountScreen> {
 
 // }
 
-  Future checkemail()async {
-    await FirebaseAuth.instance.currentUser!.reload();
-    setState(() {
-      isverified = FirebaseAuth.instance.currentUser!.emailVerified;
-    });
-    // if(isverified) timer?.cancel();
-  }
+  // Future checkemail()async {
+  //   await FirebaseAuth.instance.currentUser!.reload();
+  //   setState(() {
+  //     isverified = FirebaseAuth.instance.currentUser!.emailVerified;
+  //   });
+  //   // if(isverified) timer?.cancel();
+  // }
 
-  // String email = '';
-  // String name = '';
-  // String uwallet = '';
-  // String propic = '';
-  // String gender = '';
  
 
   @override
@@ -201,7 +193,11 @@ class _AccountScreenState extends State<AccountScreen> {
               actions: [
                 TextButton.icon(
                     onPressed: () {
-                      Navigator.of(ctx).push(MaterialPageRoute(builder:(ctx)=> loadingScrn()));
+                      showDialog(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                    content: Text('Loading'),
+                                  ));
                       deleteAccount();
                     },
                     icon: const Icon(Icons.delete,color: Colors.red,),
@@ -222,7 +218,14 @@ class _AccountScreenState extends State<AccountScreen> {
         );
             }
             else{
-              return Text('Error');
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const[
+                    Text("Error Occured",style: TextStyle(color: Colors.redAccent,fontSize: 10),),
+                    Text("Try restarting the app",style: TextStyle(color: Colors.redAccent,fontSize: 10),),
+                  ],
+                );
             }
             
           }
@@ -231,38 +234,7 @@ class _AccountScreenState extends State<AccountScreen> {
       ),
     );
   }
-  //   fetch() async {
-  //   final firebaseuser = FirebaseAuth.instance.currentUser;
-  //   if (firebaseuser != null) {
-  //     await FirebaseFirestore.instance
-  //         .collection('userData')
-  //         .doc(firebaseuser.uid)
-  //         .get()
-  //         .then((value) {
-  //       email = value.data()!["email"];
-  //       name = value.data()!['name'];
-  //       propic = value.data()!["profilepic"];
-  //       uwallet = value.data()!['wallet'].toString();
-  //       gender = value.data()!['gender'];
-  //     }).catchError((e) {
-  //       print(e);
-  //     });
-  //   }
-  // }
-  // verifyemail() async {
-  //   try{
-  //     final user = FirebaseAuth.instance.currentUser!;
-  //     await user.sendEmailVerification().then((value) {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text('Email Verification has send')));
-  //     });
-  //   }catch(e){
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text(e.toString())),);
-  //   }
-    
-    
-  // }
+  
   deleteAccount(){
     FirebaseFirestore.instance.collection("userData").doc(uid).delete().then(
       (doc) => user?.delete()).whenComplete(() => ExitApp(context)).onError((error, stackTrace){

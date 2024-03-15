@@ -2,12 +2,11 @@ import 'package:Donobox/screens/AmountAdd/AmountAdd.dart';
 import 'package:Donobox/core/app_export.dart';
 import 'package:Donobox/core/colors/colors.dart';
 import 'package:Donobox/data/modalsData.dart';
-import 'package:Donobox/model/model.dart';
+
 import 'package:Donobox/reuseable/reuseable.dart';
-import 'package:Donobox/screens/home/home.dart';
+
 import 'package:Donobox/widgets/cstmnumfield.dart';
-import 'package:Donobox/widgets/custom_elevated_button.dart';
-import 'package:Donobox/widgets/customtextField.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

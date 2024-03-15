@@ -1,7 +1,7 @@
-import 'package:Donobox/functions/checkuser.dart';
+
 import 'package:Donobox/functions/validation.dart';
 import 'package:Donobox/reuseable/reuseable.dart';
-import 'package:Donobox/screens/auth/loading.dart';
+
 import 'package:Donobox/screens/auth/resetpass.dart';
 import 'package:Donobox/screens/auth/signup.dart';
 import 'package:Donobox/screens/home/home.dart';
@@ -189,6 +189,11 @@ class _SigninScrnState extends State<SigninScrn> {
                     ),
                     reButton('Login', true, (){
                       if (formkey.currentState!.validate()) {
+                        showDialog(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                    content: Text('Loading'),
+                                  ));
                         // Navigator.of(context).push(MaterialPageRoute(
                         //       builder: (ctx) => loadingScrn()));
                         // signinUser(ctx,_emailcontroller, _passwordcontroller);
@@ -238,7 +243,8 @@ signInWithEmailAndPassword(BuildContext ctx , String email,String pass) async {
         email: email,
         password: pass
       ).then((value) {
-        Navigator.of(ctx).pushReplacement(MaterialPageRoute(builder: (ctx) => HomeScreen()));
+        Navigator.of(ctx).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (ctx) => HomeScreen()), (route) => false);
       });
     } on FirebaseAuthException catch (e) {
       String errorMessage = 'Invalid credentials, Please Check it';

@@ -506,7 +506,12 @@ class _UserWalletState extends State<UserWallet> {
                   ],
                 );
               } else {
-                return Text("Error Occured");
+                return Column(
+                  children: const[
+                    Text("Error Occured"),
+                    Text("Try restarting the app"),
+                  ],
+                );
               }
             }));
   }
