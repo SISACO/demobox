@@ -14,16 +14,20 @@ class ResetpassScrn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(context, ''),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          retextfield('Email', Icons.email, false, _emailcontroller),
-          reButton('Reset Password', true, (){
-            restfunction(context, _emailcontroller);
-          })
-        ],
+      appBar: MyAppBar(context, 'Reset Password'),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            retextfield('Email', Icons.email, false, _emailcontroller),
+            SizedBox(height: 20,),
+            reButton('Reset Password', true, (){
+              restfunction(context, _emailcontroller);
+            })
+          ],
+        ),
       )
     );
   }
@@ -31,15 +35,22 @@ class ResetpassScrn extends StatelessWidget {
 
 Future restfunction (BuildContext ctx,TextEditingController emailcontrol)async{
 
-  
-
   try{
   await FirebaseAuth.instance.sendPasswordResetEmail(email: emailcontrol.text).then((value) => {
-    Navigator.of(ctx).pushAndRemoveUntil(MaterialPageRoute(builder: (ctx) => SigninScrn()), (route) => false)
+    showDialog(
+        context: ctx,
+        builder: (BuildContext context) => AlertDialog(
+              content: Text('Password Reset Link has send ! Check your email'),
+              actions: [
+                TextButton.icon(
+                    onPressed: () {
+                      Navigator.of(ctx).pushAndRemoveUntil(MaterialPageRoute(builder: (ctx) => SigninScrn()),(route) => false);
+                    },
+                    icon: const Icon(Icons.login_outlined),
+                    label: const Text('Login'))
+              ],
+            ))
   });
-  showDialog(context: ctx, barrierDismissible: false,builder: (ctx1)=>Center(child: CircularProgressIndicator(),));
-  showSnackbar(ctx, 'Password Reset Email send');
-  Navigator.of(ctx).popUntil((route) =>  route.isFirst);
   } on FirebaseAuthException catch(e){
       showSnackbar(ctx, e.message.toString());
       Navigator.of(ctx).pop();

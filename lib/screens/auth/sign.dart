@@ -189,6 +189,11 @@ class _SigninScrnState extends State<SigninScrn> {
                     ),
                     reButton('Login', true, (){
                       if (formkey.currentState!.validate()) {
+                        showDialog(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                    content: Text('Loading'),
+                                  ));
                         // Navigator.of(context).push(MaterialPageRoute(
                         //       builder: (ctx) => loadingScrn()));
                         // signinUser(ctx,_emailcontroller, _passwordcontroller);

@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:Donobox/functions/checkuser.dart';
 import 'package:Donobox/functions/validation.dart';
 import 'package:Donobox/reuseable/reuseable.dart';
-import 'package:Donobox/screens/auth/loading.dart';
-
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +23,7 @@ class _SigupScrnState extends State<SigupScrn> {
   final TextEditingController _namecontroller = TextEditingController();
   final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
-  final TextEditingController _confirmpasswordcontroller =
-      TextEditingController();
+  final TextEditingController _confirmpasswordcontroller =TextEditingController();
   var items = [
     'Female',
     'Male',
@@ -37,7 +34,6 @@ class _SigupScrnState extends State<SigupScrn> {
   File? image;
   bool isChanged = false;
   String imgUrl = '';
-  bool Uploading = false;
   bool isLoading = true;
   final formkey = GlobalKey<FormState>();
 
@@ -63,10 +59,6 @@ class _SigupScrnState extends State<SigupScrn> {
     _passwordcontroller.clear();
     _confirmpasswordcontroller.clear();
 
-    setState(() {
-      image = null;
-      Uploading = false;
-    });
   }
 
   @override
@@ -292,55 +284,6 @@ class _SigupScrnState extends State<SigupScrn> {
                       height: 20,
                     ),
 
-                    // //username
-                    // TextFormField(
-                    //   controller: _usernamecontroller,
-                    //   validator: validateUsern,
-                    //   cursorColor: const Color.fromARGB(255, 214, 196, 4),
-                    //   style: TextStyle(color: Colors.black12.withOpacity(0.9)),
-                    //   decoration: InputDecoration(
-                    //     prefixIcon: Icon(
-                    //       Icons.person,
-                    //       color: const Color.fromARGB(255, 0, 0, 0)
-                    //           .withOpacity(0.8),
-                    //       size: 20,
-                    //     ),
-                    //     labelText: 'username',
-                    //     focusedErrorBorder: OutlineInputBorder(
-                    //       borderRadius: BorderRadius.circular(25.0),
-                    //       borderSide: BorderSide(
-                    //         color: const Color.fromARGB(255, 199, 40, 40),
-                    //         width: 1.0,),),
-                    //     errorBorder: OutlineInputBorder(
-                    //       borderRadius: BorderRadius.circular(25.0),
-                    //       borderSide: BorderSide(
-                    //         color: const Color.fromARGB(255, 199, 40, 40),
-                    //         width: 1.0,),),
-                    //     enabledBorder: OutlineInputBorder(
-                    //       borderRadius: BorderRadius.circular(25.0),
-                    //       borderSide: BorderSide(
-                    //         color: Colors.black,
-                    //         width: 1.0,
-                    //       ),
-                    //     ),
-                    //     focusedBorder: OutlineInputBorder(
-                    //       borderRadius: BorderRadius.circular(25.0),
-                    //       borderSide: BorderSide(
-                    //         color: Color.fromARGB(255, 255, 217, 0),
-                    //       ),
-                    //     ),
-                    //     labelStyle: TextStyle(
-                    //         color: const Color.fromARGB(255, 0, 0, 0)
-                    //             .withOpacity(0.4)),
-                    //     filled: true,
-                    //     floatingLabelBehavior: FloatingLabelBehavior.auto,
-                    //     fillColor: Colors.white.withOpacity(0.3),
-                    //   ),
-                    // ),
-                    // const SizedBox(
-                    //   height: 20,
-                    // ),
-
                     //password
                     TextFormField(
                       controller: _passwordcontroller,
@@ -464,36 +407,31 @@ class _SigupScrnState extends State<SigupScrn> {
                       height: 20,
                     ),
 
-                    //AddUser(_namecontroller.text, _usernamecontroller.text)
                     reButton('SignUp', true, () async {
-                       
-                        // checkSignup(context,_namecontroller, _emailcontroller.text, _usernamecontroller,_passwordcontroller.text, _confirmpasswordcontroller.text);
-                        if (formkey.currentState!.validate()) {
-                          if (image == null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Select a profile picture')),
-                        );
-                      }
-                      else {
-                        setState(() {
-                          Uploading = true;
-                        });
+                      
+                      if (formkey.currentState!.validate()) {
+                        if (image == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Select a profile picture')),
+                          );
+                        } else {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                    content: Text('Loading'),
+                                  ));
 
                           String downloadUrl =
                               await uploadImageToFirebaseStorage(image!);
-                              
-                            Uploading ? LinearProgressIndicator(color: Colors.amberAccent,) : Text("");
-
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (ctx) => loadingScrn()));
 
                           signupUser(
-                              context,
-                              _namecontroller,
-                              _emailcontroller,
-                              _passwordcontroller,
-                              downloadUrl,
-                              dropdownvalue).whenComplete(() => removeUserInfo());
+                                  context,
+                                  _namecontroller,
+                                  _emailcontroller,
+                                  _passwordcontroller,
+                                  downloadUrl,
+                                  dropdownvalue)
+                              .whenComplete(() => removeUserInfo());
                         }
                       }
                     }),
@@ -537,22 +475,3 @@ class _SigupScrnState extends State<SigupScrn> {
     }
   }
 }
-
-// async {
-                      
-//                       ImagePicker imagePicker = ImagePicker();
-//                       XFile ?file = await imagePicker.pickImage(source: ImageSource.gallery);
-//                       if(file==null) return;
-//                       String uniq = DateTime.now().millisecondsSinceEpoch.toString();
-
-//                       Reference referenceRoot = FirebaseStorage.instance.ref();
-//                       Reference referenceDirImages = referenceRoot.child('profile');
-
-//                       Reference referenceImageUpload = referenceDirImages.child(uniq);
-//                     try{
-//                       await referenceImageUpload.putFile(File(file!.path));
-//                       imgUrl = await referenceImageUpload.getDownloadURL();
-//                     }catch(e){
-//                       print(e);
-//                     }
-//                     }
