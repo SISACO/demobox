@@ -489,6 +489,8 @@ class _UserWalletState extends State<UserWallet> {
                               20,
                             ))),
                         onPressed: () {
+                                                  // Navigator.of(context).push(MaterialPageRoute(
+                        //       builder: (ctx) => loadingScrn()));
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (ctx) => AddAmount(
                                     showAppBar: true,

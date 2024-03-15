@@ -15,7 +15,7 @@ class loadingScrn extends StatelessWidget {
       content: Row(
         children: [
           CircularProgressIndicator(),
-          Container(margin: EdgeInsets.only(left: 7),child:Text("Loading..." )),
+          Container(margin: EdgeInsets.only(left: 7),child:Text("Please Wait A moment" )),
         ],),
     ),
         ],
