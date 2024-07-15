@@ -18,13 +18,7 @@
 <a href="https://github.com/SISACO/demobox">📱 Visit this Project</a>
 </p>
  
-<h2 id="technologies">💻 Technologies</h2>
 
-- Flutter
-- Figma
-- Firebase
-
- 
 <h2 id="layout">🎨 Layout</h2>
 
 <p align="center">
@@ -49,3 +43,11 @@
 
 </tr>
 </table>
+
+<h2 id="technologies">💻 Technologies</h2>
+
+- Flutter
+- Figma
+- Firebase
+
+ 
